@@ -1,71 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Buses | Bus Management System</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="./managebus.css">
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h2>Manage Buses</h2>
-            </div>
-            <div class="card-body">
-                <button class="add-btn">Add Bus</button>
-                <table class="bus-table">
-                    <thead>
-                        <tr>
-                            <th>Bus ID</th>
-                            <th>License Plate</th>
-                            <th>Model</th>
-                            <th>Capacity</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>XYZ-123</td>
-                            <td>Volvo B7R</td>
-                            <td>50</td>
-                            <td>Active</td>
-                            <td>
-                                <button class="edit-btn">Edit</button>
-                                <button class="delete-btn">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>ABC-456</td>
-                            <td>Scania K360</td>
-                            <td>45</td>
-                            <td>Active</td>
-                            <td>
-                                <button class="edit-btn">Edit</button>
-                                <button class="delete-btn">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>DEF-789</td>
-                            <td>Mercedes-Benz O500RSD</td>
-                            <td>60</td>
-                            <td>Inactive</td>
-                            <td>
-                                <button class="edit-btn">Edit</button>
-                                <button class="delete-btn">Delete</button>
-                            </td>
-                        </tr>
-
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
+  <div class="sidebar">
+    <div class="logo">
+      <img src="logo.png" alt="Logo">
     </div>
+    <a href="#">Dashboard</a>
+    <a href="#">Buses</a>
+    <a href="#">Station managers</a>
+    <a href="#">Drivers</a>
+    <a href="#">Contents</a>
+    <a href="#">Reservation</a>
+    <a href="#">History</a>
+    <a href="#">Settings</a>
+    <a href="#">Sign out</a>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2>Add Bus</h2>
+      <form>
+        <label for="busNumber">Bus Number:</label>
+        <input type="text" id="busNumber" name="busNumber"><br>
+        <label for="busType">Bus Type:</label>
+        <input type="text" id="busType" name="busType"><br>
+        <label for="driverName">Driver's Name:</label>
+        <input type="text" id="driverName" name="driverName"><br>
+        <input type="submit" value="Add Bus">
+      </form>
+    </div>
+    <div class="card">
+      <h2>Delete Bus</h2>
+      <form>
+        <label for="deleteBusNumber">Bus Number:</label>
+        <input type="text" id="deleteBusNumber" name="deleteBusNumber"><br>
+        <label for="deleteBusType">Bus Type:</label>
+        <input type="text" id="deleteBusType" name="deleteBusType"><br>
+        <input type="submit" value="Delete Bus">
+      </form>
+    </div>
+  </div>
 </body>
 </html>
