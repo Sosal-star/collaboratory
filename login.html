@@ -10,21 +10,22 @@
 
 <div class="login-container">
   <h2>Login to Bus Booking System</h2>
-  <form id="login-form" action="#" method="post">
+  <form id="login-form" action="/login" method="post">
     <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" required>
     </div>
     <div class="form-group">
-      <select id="color">  
-        <option value="1">Admin</option>  
-        <option value="2">Station manager</option>  
-        <option value="1">Driver</option>  
-        <option value="2">User</option>  
+      <label for="role">Role:</label>
+      <select id="role" name="role">  
+        <option value="admin">Admin</option>  
+        <option value="station_manager">Station manager</option>  
+        <option value="driver">Driver</option>  
+        <option value="customer">customer</option>  
         
         </select>  
 
@@ -40,7 +41,6 @@
   <div class="signup-link">
     Don't have an account? <a href="./signup.html">Signup</a>
   </div>
-</div>
-
+</div> 
 </body>
 </html>
