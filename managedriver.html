@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
-    <title>Manage Stations | Station Management System</title>
+    <title>Manage driver | Station Management System</title>
     <link rel="stylesheet" href="./manage.css">
     <link rel="stylesheet" href="index.css">
 
@@ -15,15 +15,18 @@
      <div class="container1">
         <div class="navigation">
             <ul>
+                
                 <li>
                     <a href="#">
                         <span class="icon">
                        
                         </span>
-                        <span class="title">Station manager</span>
+                        <span class="title">Driver</span>
                     </a>
                 </li>
+
                 <li>
+
                     <a href="./index.html">
                         <span class="icon">
                             <ion-icon name="grid-outline"></ion-icon>
@@ -44,7 +47,7 @@
                 </li>
 
                 <li>
-                    <a href="./managedriver.html">
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -111,31 +114,35 @@
 
     <div class="container2 main">
         <div class="topbar">
-            <div class="toggle">
-                <ion-icon name="menu-outline"></ion-icon>
-            </div>
-            </div>
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                </div>
         <div class="card">
             <div class="card-header">
-                <h2>Manage Stations</h2>
+                <h2>Manage drivers</h2>
             </div>
             <div class="card-body">
-                <button class="add-btn">Add Station manager</button>
-                <table class="station-table">
+                <button class="add-btn">Add Driver</button>
+                <table class="managedriver-Table">
                     <thead>
                         <tr>
-                            <th>Station ID</th>
+                            <th>Driver ID</th>
                             <th>Name</th>
-                            <th>Location</th>
+                            <th>Address</th>
+                            <th>Contact-number</th>
+                            <th>License number</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>001</td>
-                            <td>Prabhat Bomjan</td>
-                            <td>Ratna park</td>
+                            <td>01</td>
+                            <td>Ram</td>
+                            <td>Gaighat udayapur</td>
+                            <td>987223</td>
+                            <td>12345</td>
                             <td>Active</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
@@ -144,8 +151,10 @@
                         </tr>
                         <tr>
                             <td>002</td>
-                            <td>Sujan karki</td>
-                            <td>koteshwor</td>
+                            <td>Shyam</td>
+                            <td>Putalisadak kathmandu</td>
+                            <td>98123532</td>
+                            <td>6789</td>
                             <td>Active</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
@@ -154,8 +163,10 @@
                         </tr>
                         <tr>
                             <td>003</td>
-                            <td>Kishor Bhandari</td>
-                            <td>Naxal</td>
+                            <td>Hari</td>
+                            <td>kapan</td>
+                            <td>9842342</td>
+                            <td>101112</td>
                             <td>Inactive</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
@@ -171,8 +182,8 @@
      <!-- =========== Scripts =========  -->
      <script src="./main.js"></script>
 
-      <!-- signout popup information -->
-      <script src="./signout.js"></script>
+     <!-- signout popup information -->
+     <script src="./signout.js"></script>
       <!-- ====== ionicons ======= -->
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

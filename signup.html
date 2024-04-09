@@ -1,49 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bus Booking System - Login</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Login Form | CodingLab</title> 
+    <link rel="stylesheet" href="./signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>Signup-Form</span></div>
+        <form action="#">
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="email" placeholder="Email" required>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" required>
+          </div>
 
-<div class="login-container">
-  <h2>Signup to Bus Booking System</h2>
-  <form id="login-form" action="#" method="post">
-    <div class="form-group">
-      <label for="Email">Email:</label>
-      <input type="text" id="Email" name="Email" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <div class="form-group">
-      <label for="Confirm password">Confirm Password:</label>
-      <input type="Confirm password" id="confirm password" name="Confirm password" required>
-    </div>
-    <div class="form-group">
-        <select id="color">  
-          <option value="1">Admin</option>  
-          <option value="2">Station manager</option>  
-          <option value="1">Driver</option>  
-          <option value="2">User</option>  
-          
-          </select>  
-
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="Confirm-password" placeholder="Confirm-password" required>
+          </div>
+          <div class="row button">
+            <input type="submit" value="Signup">
+          </div>
+          <div class="signup-link">Already have an account? <a href="./login.html">login</a></div>
+        </form>
       </div>
-    <div class="form-group">
-      <button type="submit">Signup</button>
     </div>
-    <div class="form-group">
-      <!-- <span class="error-message" id="error-message"></span> -->
-    </div>
-  </form>
-  <div class="signup-link">
-    Already have an account? <a href="./login.html">Login</a>
-  </div>
-</div>
 
-</body>
+  </body>
 </html>
