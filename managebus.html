@@ -1,50 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="./managebus.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
+    <title>Manage Bus | Station Management System</title>
+    <link rel="stylesheet" href="./manage.css">
+    <link rel="stylesheet" href="index.css">
+
 </head>
 <body>
-  <div class="sidebar">
-    <div class="logo">
-      <img src="logo.png" alt="Logo">
-    </div>
-    <a href="#">Dashboard</a>
-    <a href="#">Buses</a>
-    <a href="#">Station managers</a>
-    <a href="#">Drivers</a>
-    <a href="#">Contents</a>
-    <a href="#">Reservation</a>
-    <a href="#">History</a>
-    <a href="#">Settings</a>
-    <a href="#">Sign out</a>
-  </div>
 
-  <div class="container">
-    <div class="card">
-      <h2>Add Bus</h2>
-      <form>
-        <label for="busNumber">Bus Number:</label>
-        <input type="text" id="busNumber" name="busNumber"><br>
-        <label for="busType">Bus Type:</label>
-        <input type="text" id="busType" name="busType"><br>
-        <label for="driverName">Driver's Name:</label>
-        <input type="text" id="driverName" name="driverName"><br>
-        <input type="submit" value="Add Bus">
-      </form>
+     <!-- ===============Navigation ================ --> 
+     <div class="container1">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                       
+                        </span>
+                        <span class="title">Bus-managementsystem</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./index.html">
+                        <span class="icon">
+                            <ion-icon name="grid-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                      
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./managebus.html">
+                        <span class="icon">
+                            <ion-icon name="bus-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Buses</span>
+                      
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./managedriver.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Drivers</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./stationmanager.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Station Manager</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./manageroutes.html">
+                        <span class="icon">
+                            <i class="fas fa-route"></i>
+                        </span>
+                        <span class="title">Manage Routes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Schedule</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </span>
+                        <span class="title">Report</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href = "#">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="signout-link">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+<!-- main -->
+
+    <div class="container2 main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h2>Manage Buses</h2>
+            </div>
+            <div class="card-body">
+                <button class="add-btn">Add Bus</button>
+                <table class="managedriver-Table">
+                    <thead>
+                        <tr>
+                            <th>Bus Number</th>
+                            <th>Bus type</th>
+                            <th>Driver's Name</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ba1pa9734</td>
+                            <td>mini bus</td>
+                            <td>Bipul gurung</td>
+                            <td>Active</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ga1pa9734</td>
+                            <td>large bus</td>
+                            <td>Ram dhakal</td>
+                            <td>Active</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ja1pa32</td>
+                            <td>medium</td>
+                            <td>Sosal Basnet</td>
+                            <td>Active</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="card">
-      <h2>Delete Bus</h2>
-      <form>
-        <label for="deleteBusNumber">Bus Number:</label>
-        <input type="text" id="deleteBusNumber" name="deleteBusNumber"><br>
-        <label for="deleteBusType">Bus Type:</label>
-        <input type="text" id="deleteBusType" name="deleteBusType"><br>
-        <input type="submit" value="Delete Bus">
-      </form>
-    </div>
-  </div>
+
+     <!-- =========== Scripts =========  -->
+     <script src="./main.js"></script>
+
+      <!-- signout popup information -->
+      <script src="./signout.js"></script>
+    
+      <!-- ====== ionicons ======= -->
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
