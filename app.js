@@ -161,4 +161,24 @@ app.post('/deletebus', (req, res) => {
       res.send('Bus deleted successfully');
   });
 });
+// editing bus details
+app.get('/getbus/:bus_id', (req, res) => {
+  const { bus_id } = req.params;
+  connection.query('SELECT * FROM buses WHERE bus_id = ?', [bus_id], (error, results) => {
+      if (error) {
+          return res.status(500).send('Error fetching bus data.');
+      }
+      res.json(results[0]); // Assuming bus_id is unique and only one result is returned
+  });
+});
+app.post('/editbus', (req, res) => {
+  const { bus_id, registrationnumber, model, capacity, status } = req.body;
+  const query = 'UPDATE buses SET registration_number = ?, model = ?, capacity = ?, status = ? WHERE bus_id = ?';
+  connection.query(query, [registrationnumber, model, capacity, status, bus_id], (error, results) => {
+      if (error) {
+          return res.status(500).send('Error updating bus.');
+      }
+      res.redirect('/managebus.html'); // Redirect back or handle differently
+  });
+});
 
