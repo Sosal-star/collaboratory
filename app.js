@@ -138,3 +138,27 @@ app.post('/addbus', (req, res) => {
       res.redirect('/managebus.html'); // Redirect back to the manage bus page after successful insertion
   });
 });
+// Fetch all buses
+app.get('/getbuses', (req, res) => {
+  const query = 'SELECT * FROM buses';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching buses:', error);
+          return res.status(500).send('Error fetching buses.');
+      }
+      res.json(results);
+  });
+});
+// Delete a bus
+app.post('/deletebus', (req, res) => {
+  const bus_id = req.body;
+  const query = 'DELETE FROM buses WHERE bus_id = ?';
+  connection.query(query, [bus_id], (error, results) => {
+      if (error) {
+          console.error('Error deleting bus:', error);
+          return res.status(500).send('Error deleting bus.');
+      }
+      res.send('Bus deleted successfully');
+  });
+});
+

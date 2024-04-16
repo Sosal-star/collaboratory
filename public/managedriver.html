@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Drivers | Bus Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Manage Drivers</h2>
+                <button class="add-btn" onclick="showAddDriverForm()">Add Driver</button>
+            </div>
+            <div class="add-driver-form" style="display:none;">
+                <form id="addDriverForm" action="/adddriver" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    
+                    <label for="contact_number">Contact Number:</label>
+                    <input type="text" id="contact_number" name="contact_number" required>
+                    
+                    <label for="bus_id">Assign to Bus:</label>
+                    <select id="bus_id" name="bus_id">
+                        <!-- Bus options will be populated here -->
+                    </select>
+                    
+                    <button type="submit">Add Driver</button>
+                </form>
+            </div>
+            <style>
+        
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f9f9f9;
+                }
+                
+                .container {
+                    max-width: 500px;
+                    margin: 50px auto;
+                    padding: 20px;
+                    background-color: #ffffff;
+                    border-radius: 8px;
+                    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+                }
+                
+                .form-group {
+                    margin-bottom: 20px;
+                }
+                
+                label {
+                    display: block;
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                    color: #333333; /* Dark gray */
+                }
+                
+                input[type="text"],
+                input[type="date"],
+                select {
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid #cccccc; /* Light gray */
+                    border-radius: 5px;
+                    box-sizing: border-box;
+                    background-color: #f2f2f2; /* Lighter gray */
+                    color: #333333; /* Dark gray */
+                }
+                
+                input[type="submit"] {
+                    background-color: #4CAF50; /* Green */
+                    color: white;
+                    padding: 12px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+                
+                input[type="submit"]:hover {
+                    background-color: #45a049; /* Darker green */
+                }
+                
+                /* Adjust styles for the placeholder text */
+                input::placeholder {
+                    color: #999999; /* Light gray */
+                }
+                h1{
+                    text-align: center;
+                    padding-bottom: 2px;
+                }
+                
+                    </style>
+            <div class="card-body">
+                <table class="driver-table">
+                    <thead>
+                        <tr>
+                            <th>Driver ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Contact Number</th>
+                            <th>Assigned Bus</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Driver data will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+         function showAddDriverForm() {
+            var form = document.querySelector('.add-driver-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+    </script> 
+ </body>
+</html>

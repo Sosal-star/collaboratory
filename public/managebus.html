@@ -113,10 +113,60 @@
     </div>
 
     <script>
+       
         function showAddBusForm() {
             var form = document.querySelector('.add-bus-form');
             form.style.display = form.style.display === 'none' ? 'block' : 'none';
         }
+        window.onload = function() {
+    fetchBuses();
+};
+
+function fetchBuses() {
+    fetch('/getbuses')
+    .then(response => response.json())
+    .then(buses => {
+        const table = document.querySelector('.bus-table tbody');
+        table.innerHTML = ''; // Clear existing rows
+        buses.forEach(bus => {
+            let row = `<tr>
+                <td>${bus.bus_id}</td>
+                <td>${bus.registration_number}</td>
+                <td>${bus.model}</td>
+                <td>${bus.capacity}</td>
+                <td>${bus.status}</td>
+                <td>
+                    <button onclick="deleteBus(${bus.bus_id})">Delete</button>
+                    <button onclick="editBus(${bus.bus_id})">Edit</button>
+                </td>
+            </tr>`;
+            table.innerHTML += row;
+        });
+    })
+    .catch(error => console.error('Error loading buses:', error));
+}
+
+
+
+function deleteBus(busId) {
+    console.log('Attempting to delete bus with ID:', busId);
+    fetch('/deletebus', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ bus_id: busId })
+    })
+    .then(() => fetchBuses())  // Refresh list after deletion
+    .catch(error => console.error('Error deleting bus:', error));
+}
+
+function editBus(busId) {
+    // Placeholder for edit functionality
+    console.log('Editing bus:', busId);
+    // You can populate a form here to update bus details.
+}
+console.log('Attempting to delete bus with ID:', bus_id);
     </script>
 </body>
 </html>
