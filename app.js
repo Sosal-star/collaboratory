@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'online_bus_ticketing'
+  database: 'bus_ticketing'
 });
 
 connection.connect();
@@ -109,17 +109,19 @@ app.post('/signup', (req, res) => {
   const { name, email, password, confirmPassword, contactNumber } = req.body;
 
   if (password !== confirmPassword) {
-      return res.status(400).send('Passwords do not match.');
+    return res.status(400).send('Passwords do not match.');
   }
 
   const query = 'INSERT INTO customer (name, email, password, contact_info) VALUES (?, ?, ?, ?)';
   connection.query(query, [name, email, password, contactNumber], (error, results) => {
-      if (error) {
-          return res.status(500).send('Error registering user.');
-      }
-      res.redirect('/login.html'); // Redirect to login page after successful registration
+    if (error) {
+      console.error('Error registering user:', error);
+      return res.status(500).send('Error registering user.');
+    }
+    res.redirect('/login.html'); // Redirect to login page after successful registration
   });
 });
+
 // Endpoint to add a new bus
 app.post('/addbus', (req, res) => {
   // Extract bus details from the request body
