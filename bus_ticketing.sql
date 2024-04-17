@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2024 at 04:47 PM
+-- Generation Time: Apr 17, 2024 at 01:26 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -115,7 +115,8 @@ CREATE TABLE `drivers` (
   `email` varchar(100) NOT NULL,
   `password` varchar(100) DEFAULT NULL,
   `contact_number` varchar(100) DEFAULT NULL,
-  `bus_id` int(11) DEFAULT NULL
+  `bus_id` int(11) DEFAULT NULL,
+  `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

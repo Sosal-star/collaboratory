@@ -29,6 +29,24 @@
                     <button type="submit">Add Bus</button>
                 </form>
             </div>
+            <div class="edit-bus-form" style="display:none;">
+                <form id="editBusForm">
+                    <input type="hidden" id="edit_bus_id" name="bus_id">
+                    <label for="edit_registrationnumber">Registration Number:</label>
+                    <input type="text" id="edit_registrationnumber" name="registrationnumber" required>
+                    <label for="edit_model">Model:</label>
+                    <input type="text" id="edit_model" name="model" required>
+                    <label for="edit_capacity">Capacity:</label>
+                    <input type="number" id="edit_capacity" name="capacity" required>
+                    <label for="edit_status">Status:</label>
+                    <select id="edit_status" name="status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                    <button type="button" onclick="submitEditForm()">Save Changes</button>
+                </form>
+            </div>
+            
             <style>
         
                 body {
@@ -136,8 +154,8 @@ function fetchBuses() {
                 <td>${bus.capacity}</td>
                 <td>${bus.status}</td>
                 <td>
-                    <button onclick="deleteBus(${bus.bus_id})">Delete</button>
-                    <button onclick="editBus(${bus.bus_id})">Edit</button>
+                    <button onclick="deleteBus(bus_id)">Delete</button>
+                    <button onclick="editBus(busID)">Edit</button>
                 </td>
             </tr>`;
             table.innerHTML += row;
@@ -162,11 +180,22 @@ function deleteBus(busId) {
 }
 
 function editBus(busId) {
-    // Placeholder for edit functionality
     console.log('Editing bus:', busId);
-    // You can populate a form here to update bus details.
+    fetch(`/getbus/${busId}`)
+    .then(response => response.json())
+    .then(bus => {
+        document.getElementById('edit_bus_id').value = bus.bus_id;
+        document.getElementById('edit_registrationnumber').value = bus.registration_number;
+        document.getElementById('edit_model').value = bus.model;
+        document.getElementById('edit_capacity').value = bus.capacity;
+        document.getElementById('edit_status').value = bus.status;
+
+        var form = document.querySelector('.edit-bus-form');
+        form.style.display = 'block';
+    })
+    .catch(error => console.error('Error loading bus data:', error));
 }
-console.log('Attempting to delete bus with ID:', bus_id);
+
     </script>
 </body>
 </html>

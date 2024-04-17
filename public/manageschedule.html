@@ -117,89 +117,79 @@
     </div>
     <div class="card">
         <div class="card-header">
-            <h2>Manage Driver</h2>
-            <button class="add-btn" onclick="showAddDriverForm()">Add Driver</button>
+            <h2>Manage Schedule</h2>
+            <button class="add-btn" onclick="showAddScheduleForm()">Add Schedule</button>
         </div>
-        <div class="add-driver-form" style="display:none;">
-            <form id="addDriverForm" action="/adddriver" method="POST">
-                <label for="driver_name">Name:</label>
-                <input type="text" id="driver_name" name="driver_name" required>
-                
-                <label for="driver_email">Email:</label>
-                <input type="email" id="driver_email" name="driver_email" required>
-                
-                <label for="driver_password">Password:</label>
-                <input type="password" id="driver_password" name="driver_password" required>
-                
-                <label for="driver_contact">Contact Number:</label>
-                <input type="text" id="driver_contact" name="driver_contact" required>
-                
-                <label for="bus_id">Assign to Bus:</label>
-                <input type="text" id="bus_id" name="bus_id">
-                    <!-- Bus options will be populated here -->
-                    <select id="driver_status" name="driver_status">
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                
-                
-                <button type="submit">Add Driver</button>
+        <div class="add-schedule-form" style="display:none;">
+            <form id="addScheduleForm" action="/addschedule" method="POST">
+                <label for="route_id">Route id:</label>
+                <input type="number" id="route_id" name="route_id" required>
+                <label for="bus_id">Bus id:</label>
+                <input type="number" id="bus_id" name="bus_id" required>
+                <label for="departuretime">Departure time:</label>
+                <input type="datetime-local" id="departuretime" name="departuretime" required>
+                <label for="arrivaltime">Arrival time:</label>
+                <input type="datetime-local" id="arrivaltime" name="arrivaltime" required>
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+                <button type="submit" class="Addbutton">Add</button>
             </form>
         </div>
                 <table class="station-table">
                     <thead>
                         <tr>
-                            <th>Driver ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>Contact Number</th>
-                            <th>Bus Assign</th>
+                            <th>Schedule Id</th>
+                            <th>Route Id</th>
+                            <th>Bus Id</th>
+                            <th>Departure time</th>
+                            <th>Arrival time</th>
                             <th>Status</th>
+                        
                         </tr>
                     </thead>
-                    <tbody id="driverList">
-                     <!-- Driver data will be dynamically inserted here -->
+                    <tbody>
+                       
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     <script>
-        function showAddDriverForm() {
-            var form = document.querySelector('.add-driver-form');
+        function showAddScheduleForm() {
+            var form = document.querySelector('.add-schedule-form');
             form.style.display = form.style.display === 'none' ? 'block' : 'none';
         }
         document.addEventListener('DOMContentLoaded', function() {
-    fetchDrivers(); // Call on page load
+    fetchSchedules(); // Call on page load to fetch and display schedules
 });
 
-function fetchDrivers() {
-    fetch('/getdrivers')
+function fetchSchedules() {
+    fetch('/getschedules')
         .then(response => response.json())
-        .then(drivers => {
-            const driverList = document.getElementById('driverList'); // Ensure you have a tbody element with this ID
-            driverList.innerHTML = ''; // Clear existing driver list
+        .then(schedules => {
+            const scheduleList = document.getElementById('scheduleList'); // Make sure you have a tbody element with this ID in your table
+            scheduleList.innerHTML = ''; // Clear previous entries
 
-            drivers.forEach(driver => {
-                driverList.innerHTML += `
+            schedules.forEach(schedule => {
+                scheduleList.innerHTML += `
                     <tr>
-                        <td>${driver.driver_id}</td>
-                        <td>${driver.name}</td>
-                        <td>${driver.email}</td>
-                        <td>${driver.password}</td>
-                        <td>${driver.contact_number}</td>
-                        <td>${driver.bus_id}</td>
-                        <td>${driver.status}</td>
+                        <td>${schedule.schedule_id}</td>
+                        <td>${schedule.route_id}</td>
+                        <td>${schedule.bus_id}</td>
+                        <td>${schedule.departure_time}</td>
+                        <td>${schedule.arrival_time}</td>
+                        <td>${schedule.status}</td>
                     </tr>
                 `;
             });
         })
         .catch(error => {
-            console.error('Error fetching drivers:', error);
+            console.error('Error fetching schedules:', error);
         });
 }
-        
     </script>
      <!-- =========== Scripts =========  -->
      <!--script src="./main.js"></script-->

@@ -161,4 +161,93 @@ app.post('/deletebus', (req, res) => {
       res.send('Bus deleted successfully');
   });
 });
+// editing bus details
+app.get('/getbus/:bus_id', (req, res) => {
+  const { bus_id } = req.params;
+  connection.query('SELECT * FROM buses WHERE bus_id = ?', [bus_id], (error, results) => {
+      if (error) {
+          return res.status(500).send('Error fetching bus data.');
+      }
+      res.json(results[0]); // Assuming bus_id is unique and only one result is returned
+  });
+});
+app.post('/editbus', (req, res) => {
+  const { bus_id, registrationnumber, model, capacity, status } = req.body;
+  const query = 'UPDATE buses SET registration_number = ?, model = ?, capacity = ?, status = ? WHERE bus_id = ?';
+  connection.query(query, [registrationnumber, model, capacity, status, bus_id], (error, results) => {
+      if (error) {
+          return res.status(500).send('Error updating bus.');
+      }
+      res.redirect('/managebus.html'); // Redirect back or handle differently
+  });
+});
+// Endpoint to add a new driver
+app.post('/adddriver', (req, res) => {
+  // Extract driver details from the request body
+  const { driver_name, driver_email, driver_password, driver_contact, bus_id, driver_status } = req.body;
+
+  // SQL query to insert a new driver into the database
+  const query = 'INSERT INTO drivers (name, email, password, contact_number, bus_id, status) VALUES (?, ?, ?, ?, ?, ?)';
+  
+  connection.query(query, [driver_name, driver_email, driver_password, driver_contact, bus_id, driver_status], (error, results) => {
+      if (error) {
+          console.error('Error adding driver:', error);
+          return res.status(500).send('Error adding driver to the database.');
+      }
+      res.redirect('/managedriver.html'); // Redirect back to the manage bus page after successful insertion
+  });
+});
+// Endpoint to get all drivers
+app.get('/getdrivers', (req, res) => {
+  const query = 'SELECT * FROM drivers';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching drivers:', error);
+          return res.status(500).send('Error fetching drivers.');
+      }
+      res.json(results); // Send driver data as JSON
+  });
+});
+// Endpoint to add a new route
+app.post('/addroute', (req, res) => {
+  const { origin, destination, distance, duration, status, bus_id } = req.body;
+
+  // SQL query to insert a new route into the database
+  const query = 'INSERT INTO routes (origin, destination, distance, duration, status, bus_id) VALUES (?, ?, ?, ?, ?, ?)';
+  
+  connection.query(query, [origin, destination, distance, duration, status, bus_id], (error, results) => {
+      if (error) {
+          console.error('Error adding route:', error);
+          return res.status(500).send('Error adding route to the database.');
+      }
+      res.redirect('/manageroutes.html'); // Redirect back to the manage routes page after successful insertion
+  });
+});
+// Endpoint to get all routes
+app.get('/getroutes', (req, res) => {
+  const query = 'SELECT * FROM routes';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching routes:', error);
+          return res.status(500).send('Error fetching routes.');
+      }
+      res.json(results); // Send route data as JSON
+  });
+});
+// Endpoint to add a new schedule
+app.post('/addschedule', (req, res) => {
+  const { route_id, bus_id, departure_time, arrival_time, status } = req.body;
+
+  // SQL query to insert a new schedule into the database
+  const query = 'INSERT INTO schedules (route_id, bus_id, departure_time, arrival_time, status) VALUES (?, ?, ?, ?, ?)';
+  
+  connection.query(query, [route_id, bus_id, departure_time, arrival_time, status], (error, results) => {
+      if (error) {
+          console.error('Error adding schedule:', error);
+          return res.status(500).send('Error adding schedule to the database.');
+      }
+      res.send('Schedule added successfully');
+  });
+});
+
 
