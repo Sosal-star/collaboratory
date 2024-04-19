@@ -24,6 +24,7 @@ nav {
     font-weight: bold;
     display: flex;
     align-items: center;
+
 }
 
 .links ul {
@@ -120,15 +121,25 @@ button:hover {
     gap: 20px;
 }
 
+
 .card-container {
     display: grid;
     grid-template-rows: 1fr 2fr;
     gap: 10px;
     width: 100%;
+    overflow: hidden;
+    background-color: aqua;
 }
 
 .card-container>p {
     text-align: justify;
+}
+.card-container>img{
+    transition: .5s ease-in-out;
+}
+.card-container>img:hover{
+
+scale: 1.2; 
 }
 
 .tit {
