@@ -49,23 +49,18 @@ function getTableName(role) {
 app.post('/login', (req, res) => {
   const { email, password, role } = req.body;
   let tableName = getTableName(role);
-
   if (!tableName) {
     return res.status(400).send('Invalid role specified');
   }
-
   const query = `SELECT * FROM ${tableName} WHERE email = ?`;
-
   connection.query(query, [email], (error, results) => {
     if (error) {
       return res.status(500).send('Error on the server.');
     }
-
     if (results.length > 0) {
       const user = results[0];
       if (password === user.password) { // Simplified for clarity; use password hashing in production
         req.session.user = { id: user.id, role: user.role };
-
         if (role === 'admin') {
           res.redirect('/admindashboard.html');
         } else if (role === 'customer') {
@@ -247,6 +242,22 @@ app.post('/addschedule', (req, res) => {
           return res.status(500).send('Error adding schedule to the database.');
       }
       res.send('Schedule added successfully');
+  });
+});
+// End point to get bus information 
+app.post('/search-buses', (req, res) => {
+  const { from, to, date } = req.body;
+  
+ 
+  const query = `SELECT * FROM schedules WHERE departure_location = ? AND arrival_location = ? AND DATE(departure_time) = ?`;
+ 
+  connection.query(query, [from, to, date], (error, results) => {
+      if (error) {
+          console.error('Error fetching buses:', error);
+          res.status(500).send('Error searching for buses.');
+          return;
+      }
+      res.json(results); // Send the results back to the frontend
   });
 });
 
