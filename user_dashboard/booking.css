@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.gap {
+    padding: 1rem 5rem;
+}
+
+nav {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.links ul {
+    list-style-type: none;
+}
+
+.links ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.links ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+.links ul li a:hover {
+    text-decoration: underline;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the left */
+    background-color: #0e1d35;
+    color: white;
+    height: auto;
+    padding: 2rem;
+  
+}
+.headline{
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.left,
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    margin-bottom: 1rem;
+    margin-top: 15px;
+    
+}
+
+.date-picker {
+    margin-bottom: 1rem;
+    margin-left: 40px;
+}
+
+.column {
+    margin-bottom: 10px;
+    margin-top: 50px;
+    margin-left: 40px;
+
+}
+.from{
+    margin-bottom: 1px;
+}
+.to{
+    margin-left: 20px;
+    
+}
+select,
+input.date {
+    width: 200px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+}
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-left: 80px;
+    background-color: #2B3D5B;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.right button{
+    padding: 15px 30px;
+    margin-top: 20px;
+    font-size: larger;
+    
+}
+
+button:hover {
+    background-color: #C3C3C3;
+}
+.buslist{
+    background-color: white;
+  width: 300px;
+  padding: 150px 400px;
+  margin: 20px;
+  margin-left: 600px;
+  margin-top: -400px;
+  
+}
+.ablbl{
+    color: #0e1d35;
+    
+}
+
+.foot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.img {
+    height: 80px;
+}
+
+.left-foot {
+    display: flex;
+    gap: 40px;
+    margin-left: 80px;
+}
+
+.left-foot .abt ul,
+.left-foot .res ul,
+.left-foot .cnt ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: white;
+}
+.left-foot ul a{
+    color: white;
+    text-decoration: none;
+}
+
+
+footer {
+    background-color: white;
+    color: #0e1d35;
+    padding: 40px;
+}
+
+.left-foot .abt h2,
+.left-foot .res h2,
+.left-foot .cnt h2 {
+    color: #0e1d35;
+}
+
+.left-foot .abt ul,
+.left-foot .res ul,
+.left-foot .cnt ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.left-foot .abt ul li,
+.left-foot .res ul li,
+.left-foot .cnt ul li {
+    color: #0e1d35;
+    margin-bottom: 5px;
+}
+
+.right-foot .name {
+    color: #0e1d35;
+}
+
+.right-foot .info p {
+    color: #0e1d35;
+}

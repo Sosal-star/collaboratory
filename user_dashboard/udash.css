@@ -45,12 +45,13 @@ nav {
     text-decoration: underline;
 }
 
+
 .hero {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
     align-items: center;
-    background-color: #333;
+    background-color: #0e1d35;
     color: white;
     height: 70vh;
 }
@@ -99,27 +100,33 @@ label {
 button {
     padding: 5px 10px;
     margin-top: 5px;
-    background-color: #007bff;
+    background-color: #2B3D5B;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.right>button {
-    margin-top: 10px;
-    font-size: 25px;
+
+.right button{
+    padding: 15px 30px;
+    margin-top: 20px;
+    font-size: larger;
+    
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #C3C3C3;
 }
+
 
 .card {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    
 }
+
 
 
 .card-container {
@@ -128,8 +135,11 @@ button:hover {
     gap: 10px;
     width: 100%;
     overflow: hidden;
-    background-color: aqua;
-}
+    background-color: #C3C3C3;
+    margin: 0 20px;
+    border-radius: 35px;
+} 
+
 
 .card-container>p {
     text-align: justify;
@@ -142,10 +152,20 @@ button:hover {
 scale: 1.2; 
 }
 
+
 .tit {
     text-align: center;
     font-size: 40px;
     margin: 16px 0;
+}
+.btn{
+    padding: 5px 10px;
+    margin-top: 5px;
+    background-color: #2B3D5B;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
 }
 
 .about {
@@ -185,10 +205,17 @@ scale: 1.2;
     list-style-type: none;
     padding: 0;
     margin: 0;
+    text-decoration: none;
+    color: white;
+}
+.left-foot ul a{
+    color: white;
+    text-decoration: none;
 }
 
+
 footer {
-    background-color: #333;
+    background-color: #0e1d35;
     color: white;
     padding: 40px;
 }
