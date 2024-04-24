@@ -196,3 +196,12 @@ footer {
 .right-foot .info p {
     color: #0e1d35;
 }
+#bus-results {
+    margin-top: 20px;
+  }
+  
+  .bus-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+  }

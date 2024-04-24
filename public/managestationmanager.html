@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
-    <title>Manage Bus | Station Management System</title>
+    <title>Manage Stations | Station Management System</title>
+    <link rel="stylesheet" href="./manage.css">
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="manage.css">
 
 </head>
 <body>
@@ -20,7 +20,7 @@
                         <span class="icon">
                        
                         </span>
-                        <span class="title">Bus-managementsystem</span>
+                        <span class="title">Station manager</span>
                     </a>
                 </li>
                 <li>
@@ -79,25 +79,25 @@
                     </a>
                 </li>
 
-                <!-- <li>
+                <li>
                     <a href="#">
                         <span class="icon">
                             <ion-icon name="lock-closed-outline"></ion-icon>
                         </span>
                         <span class="title">Report</span>
                     </a>
-                </li> -->
+                </li>
 
                 <li>
-                    <a href = "#">
+                    <a href="#">
                         <span class="icon">
-                            <ion-icon name="book-outline"></ion-icon>
+                            <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Contents</span>
+                        <span class="title">Settings</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="signout-link">
+                    <a href="./login.html" id="signout-link">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -107,96 +107,72 @@
             </ul>
         </div>
 
-<!-- main -->
 
-<div class="container2 main">
-    <div class="topbar">
-        <div class="toggle">
-            <ion-icon name="menu-outline"></ion-icon>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <h2>Manage Schedule</h2>
-            <button class="add-btn" onclick="showAddScheduleForm()">Add Schedule</button>
-        </div>
-        <div class="add-schedule-form" style="display:none;">
-            <form id="addScheduleForm" action="/addschedule" method="POST">
-                <label for="route_id">Route id:</label>
-                <input type="number" id="route_id" name="route_id" required>
-                <label for="bus_id">Bus id:</label>
-                <input type="number" id="bus_id" name="bus_id" required>
-                <label for="departuretime">Departure time:</label>
-                <input type="datetime-local" id="departuretime" name="departuretime" required>
-                <label for="arrivaltime">Arrival time:</label>
-                <input type="datetime-local" id="arrivaltime" name="arrivaltime" required>
-                <label for="status">Status:</label>
-                <select id="status" name="status">
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-                <button type="submit" class="Addbutton">Add</button>
-            </form>
-        </div>
+
+    <div class="container2 main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+            </div>
+        <div class="card">
+            <div class="card-header">
+                <h2>Manage Stations</h2>
+            </div>
+            <div class="card-body">
+                <button class="add-btn">Add Station manager</button>
                 <table class="station-table">
                     <thead>
                         <tr>
-                            <th>Schedule Id</th>
-                            <th>Route Id</th>
-                            <th>Bus Id</th>
-                            <th>Departure time</th>
-                            <th>Arrival time</th>
+                            <th>Station ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
                             <th>Status</th>
-                        
+                            <th>Action</th>
                         </tr>
                     </thead>
-                   
-                    <tbody id="scheduleList">
-                       
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>Prabhat Bomjan</td>
+                            <td>Ratna park</td>
+                            <td>Active</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>Sujan karki</td>
+                            <td>koteshwor</td>
+                            <td>Active</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>003</td>
+                            <td>Kishor Bhandari</td>
+                            <td>Naxal</td>
+                            <td>Inactive</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <script>
-        function showAddScheduleForm() {
-            var form = document.querySelector('.add-schedule-form');
-            form.style.display = form.style.display === 'none' ? 'block' : 'none';
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-    fetchSchedules(); // Call on page load to fetch and display schedules
-});
 
-function fetchSchedules() {
-    fetch('/getschedules')
-        .then(response => response.json())
-        .then(schedules => {
-            const scheduleList = document.getElementById('scheduleList'); // Make sure you have a tbody element with this ID in your table
-            scheduleList.innerHTML = ''; // Clear previous entries
-
-            schedules.forEach(schedule => {
-                scheduleList.innerHTML += `
-                    <tr>
-                        <td>${schedule.schedule_id}</td>
-                        <td>${schedule.route_id}</td>
-                        <td>${schedule.bus_id}</td>
-                        <td>${schedule.departure_time}</td>
-                        <td>${schedule.arrival_time}</td>
-                        <td>${schedule.status}</td>
-                    </tr>
-                `;
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching schedules:', error);
-        });
-}
-    </script>
      <!-- =========== Scripts =========  -->
-     <!--script src="./main.js"></script-->
+     <script src="./main.js"></script>
 
-     <!-- signout popup information -->
-     <!--script src="./signout.js"></script-->
+      <!-- signout popup information -->
+      <script src="./signout.js"></script>
       <!-- ====== ionicons ======= -->
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

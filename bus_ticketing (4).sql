@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2024 at 01:26 AM
+-- Generation Time: Apr 24, 2024 at 03:26 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -80,7 +80,9 @@ INSERT INTO `buses` (`bus_id`, `registration_number`, `model`, `capacity`, `stat
 (3, 'suman', 'sss', 11, 'active'),
 (4, 'BA 5 Kha 1235', 'Mercedes', 40, 'active'),
 (5, 'vu', 'bachub', 12, 'active'),
-(6, 'hhhh', 'hhh', 66, 'active');
+(6, 'hhhh', 'hhh', 66, 'active'),
+(7, 'ba 5kha', 'haha', 12, 'active'),
+(8, 'hahaha', 'hahah', 23, 'active');
 
 -- --------------------------------------------------------
 
@@ -119,6 +121,15 @@ CREATE TABLE `drivers` (
   `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `drivers`
+--
+
+INSERT INTO `drivers` (`driver_id`, `name`, `email`, `password`, `contact_number`, `bus_id`, `status`) VALUES
+(1, 'sss', 'a@gmail.com', 'aaa', '980000', 1, 'active'),
+(3, 'sss', 'ab@gmail.com', 'qqq', '9800001', 2, 'active'),
+(4, 'hhha', 'haha@gmail.com', 'haha', '9890000', 1, 'active');
+
 -- --------------------------------------------------------
 
 --
@@ -130,8 +141,17 @@ CREATE TABLE `routes` (
   `origin` varchar(100) DEFAULT NULL,
   `destination` varchar(100) DEFAULT NULL,
   `distance` float DEFAULT NULL,
-  `duration` time DEFAULT NULL
+  `duration` time DEFAULT NULL,
+  `status` text NOT NULL,
+  `bus_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `routes`
+--
+
+INSERT INTO `routes` (`route_id`, `origin`, `destination`, `distance`, `duration`, `status`, `bus_id`) VALUES
+(1, 'kathmandu', 'pokhara', 500, '13:30:00', 'active', 1);
 
 -- --------------------------------------------------------
 
@@ -144,8 +164,16 @@ CREATE TABLE `schedules` (
   `route_id` int(11) DEFAULT NULL,
   `bus_id` int(11) DEFAULT NULL,
   `departure_time` datetime DEFAULT NULL,
-  `arrival_time` datetime DEFAULT NULL
+  `arrival_time` datetime DEFAULT NULL,
+  `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schedules`
+--
+
+INSERT INTO `schedules` (`schedule_id`, `route_id`, `bus_id`, `departure_time`, `arrival_time`, `status`) VALUES
+(7, 1, 2, '2024-04-25 06:11:00', '2024-04-25 06:06:00', 'active');
 
 -- --------------------------------------------------------
 
@@ -206,7 +234,8 @@ ALTER TABLE `drivers`
 -- Indexes for table `routes`
 --
 ALTER TABLE `routes`
-  ADD PRIMARY KEY (`route_id`);
+  ADD PRIMARY KEY (`route_id`),
+  ADD KEY `bus_id` (`bus_id`);
 
 --
 -- Indexes for table `schedules`
@@ -243,7 +272,7 @@ ALTER TABLE `bookings`
 -- AUTO_INCREMENT for table `buses`
 --
 ALTER TABLE `buses`
-  MODIFY `bus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `bus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `customer`
@@ -255,19 +284,19 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `drivers`
 --
 ALTER TABLE `drivers`
-  MODIFY `driver_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `driver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `stationmanager`
@@ -291,6 +320,12 @@ ALTER TABLE `bookings`
 --
 ALTER TABLE `drivers`
   ADD CONSTRAINT `drivers_ibfk_1` FOREIGN KEY (`bus_id`) REFERENCES `buses` (`bus_id`);
+
+--
+-- Constraints for table `routes`
+--
+ALTER TABLE `routes`
+  ADD CONSTRAINT `routes_ibfk_1` FOREIGN KEY (`bus_id`) REFERENCES `buses` (`bus_id`);
 
 --
 -- Constraints for table `schedules`

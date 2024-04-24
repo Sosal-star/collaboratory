@@ -231,12 +231,13 @@ app.get('/getroutes', (req, res) => {
 });
 // Endpoint to add a new schedule
 app.post('/addschedule', (req, res) => {
-  const { route_id, bus_id, departure_time, arrival_time, status } = req.body;
+  const { route_id, bus_id, departuretime, arrivaltime, status } = req.body;
+  console.log(departuretime, arrivaltime);
 
   // SQL query to insert a new schedule into the database
   const query = 'INSERT INTO schedules (route_id, bus_id, departure_time, arrival_time, status) VALUES (?, ?, ?, ?, ?)';
   
-  connection.query(query, [route_id, bus_id, departure_time, arrival_time, status], (error, results) => {
+  connection.query(query, [route_id, bus_id, departuretime, arrivaltime, status], (error, results) => {
       if (error) {
           console.error('Error adding schedule:', error);
           return res.status(500).send('Error adding schedule to the database.');
@@ -244,21 +245,38 @@ app.post('/addschedule', (req, res) => {
       res.send('Schedule added successfully');
   });
 });
-// End point to get bus information 
+// Endpoint to get all schedules
+app.get('/getschedules', (req, res) => {
+  const query = 'SELECT * FROM schedules';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching schedules:', error);
+          return res.status(500).send('Error fetching schedules.');
+      }
+      res.json(results); // Send schedule data as JSON
+  });
+});
+
 app.post('/search-buses', (req, res) => {
-  const { from, to, date } = req.body;
-  
- 
-  const query = `SELECT * FROM schedules WHERE departure_location = ? AND arrival_location = ? AND DATE(departure_time) = ?`;
- 
+  const { from, to, date } = req.body;  // assuming 'from' and 'to' are location IDs or names and 'date' is the travel date
+
+  const query = `
+      SELECT b.*, r.origin, r.destination, s.departure_time, s.arrival_time
+      FROM buses b
+      JOIN schedules s ON b.bus_id = s.bus_id
+      JOIN routes r ON s.route_id = r.route_id
+      WHERE r.origin = ? AND r.destination = ? AND DATE(s.departure_time) = ?
+  `;
+
+  // Executing the query
   connection.query(query, [from, to, date], (error, results) => {
       if (error) {
           console.error('Error fetching buses:', error);
-          res.status(500).send('Error searching for buses.');
-          return;
+          return res.status(500).send('Error fetching buses.');
       }
-      res.json(results); // Send the results back to the frontend
+      res.json(results);
   });
 });
+
 
 
