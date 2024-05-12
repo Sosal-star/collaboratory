@@ -6,7 +6,7 @@ const session = require('express-session');
 
 const app = express();
 const port = 3000;
-
+app.use(express.json());
 // Database connection
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -259,13 +259,14 @@ app.get('/getschedules', (req, res) => {
 
 app.post('/search-buses', (req, res) => {
   const { from, to, date } = req.body;  // assuming 'from' and 'to' are location IDs or names and 'date' is the travel date
-
+  console.log({ from, to, date });
   const query = `
       SELECT b.*, r.origin, r.destination, s.departure_time, s.arrival_time
       FROM buses b
       JOIN schedules s ON b.bus_id = s.bus_id
       JOIN routes r ON s.route_id = r.route_id
       WHERE r.origin = ? AND r.destination = ? AND DATE(s.departure_time) = ?
+      
   `;
 
   // Executing the query

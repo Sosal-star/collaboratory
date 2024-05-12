@@ -38,8 +38,8 @@
                 <label for="from">From</label>
                 <select id="from" class="from">
                     <option value="">From</option>
-                    <option value="location1">kathmandu</option>
-                    <option value="location2">pokhara</option>
+                    <option value="kathmandu">kathmandu</option>
+                    <option value="pokhara">pokhara</option>
                     <option value="location3">Janakpur</option>
                     <option value="location4">Ilam</option>
                     <option value="location5">Chitwan</option>
@@ -52,8 +52,8 @@
                 <label for="to">To</label>
                 <select id="to" class="to">
                     <option value="">To</option>
-                    <option value="location1">kathmandu</option>
-                    <option value="location2">pokhara</option>
+                    <option value="kathmandu">kathmandu</option>
+                    <option value="pokhara">pokhara</option>
                     <option value="location3">Janakpur</option>
                     <option value="location4">Ilam</option>
                     <option value="location5">Chitwan</option>
@@ -123,45 +123,52 @@
     <hr>
 </footer>
 <script>
-    document.getElementById('search-button').addEventListener('click', function(event) {
-    event.preventDefault();
-    var from = document.getElementById('from').value;
-    var to = document.getElementById('to').value;
-    var date = document.getElementById('date').value;
-
-    fetch('/search-buses', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from, to, date })
-    })
-    .then(response => response.json())
-    .then(buses => {
-        const resultsContainer = document.getElementById('bus-results');
-        resultsContainer.innerHTML = '';
-        if (buses.length > 0) {
-            buses.forEach(bus => {
-                const busElement = document.createElement('div');
-                busElement.className = 'bus-item';
-                busElement.innerHTML = `
-                    <h4>${bus.model} - ${bus.registration_number}</h4>
-                    <p>Capacity: ${bus.capacity}</p>
-                    <p>Status: ${bus.status}</p>
-                    <p>Departure: ${bus.departure_time}</p>
-                    <p>Arrival: ${bus.arrival_time}</p>
-                    <button onclick="bookBus(${bus.bus_id})">Book Now</button>
-                `;
-                resultsContainer.appendChild(busElement);
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchButton = document.getElementById('search-button');
+        if (searchButton) {
+            searchButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                var from = document.getElementById('from').value;
+                var to = document.getElementById('to').value;
+                var date = document.getElementById('date').value;
+                console.log({ from, to, date });
+                fetch('/search-buses', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ from, to, date })
+                })
+                .then(response => response.json())
+                .then(buses => {
+                    const resultsContainer = document.getElementById('bus-results');
+                    resultsContainer.innerHTML = ''; // Clear previous results
+    
+                    if (buses.length > 0) {
+                        buses.forEach(bus => {
+                            const busElement = document.createElement('div');
+                            busElement.className = 'bus-item';
+                            busElement.innerHTML = `
+                                <h4>${bus.model} - ${bus.registration_number}</h4>
+                                <p>Capacity: ${bus.capacity}</p>
+                                <p>Status: ${bus.status}</p>
+                                <p>Departure: ${bus.departure_time}</p>
+                                <p>Arrival: ${bus.arrival_time}</p>
+                                <button onclick="bookBus(${bus.bus_id})">Book Now</button>
+                            `;
+                            resultsContainer.appendChild(busElement);
+                        });
+                    } else {
+                        resultsContainer.innerHTML = '<p>No buses found for your search criteria.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    resultsContainer.innerHTML = '<p>Error fetching buses. Please try again later.</p>';
+                });
             });
-        } else {
-            resultsContainer.innerHTML = '<p>No buses found for your search criteria.</p>';
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        resultsContainer.innerHTML = '<p>Error fetching buses. Please try again later.</p>';
     });
-});
-</script>
+    </script>
+    
     
 </body>
 </html>
