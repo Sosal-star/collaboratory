@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
+    <title>View Driver | Station Management System</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="manage.css">
+
+</head>
+<body>
+
+     <!-- ===============Navigation ================ --> 
+     <div class="container1">
+        <div class="navigation">
+            <ul>
+                <li class="logowrapper">
+                   
+                        
+                    <img src="logo.jpg" alt="Bus logo" class="logo">
+                   
+                  
+
+                    <span class="title">Sajilo safari</span>
+             
+            
+                </li>
+                <li>
+                <a href="./managerside.html">
+                    <span class="icon">
+                        <ion-icon name="grid-outline"></ion-icon>
+                    </span>
+                    <span class="title">Dashboard</span>
+                  
+                </a>
+            </li>
+               
+
+                <li>
+                    <a href="./manage_viewdriver.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">View Drivers</span>
+                    </a>
+                </li>
+
+
+               
+
+                <li>
+                    <a href="./manager_viewroutes.html">
+                        <span class="icon">
+                            <i class="fas fa-route"></i>
+                        </span>
+                        <span class="title">View Routes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./manager_viewschedule.html">
+                        <span class="icon">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">View Schedule</span>
+                    </a>
+                </li>
+
+               
+                <li>
+                    <a href="#" id="signout-link">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+<!-- main -->
+
+<div class="container2 main">
+    <div class="topbar">
+        <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>View Driver</h2>
+            
+        </div>
+    
+        <!-- details -->
+    
+        <div class="card-body">
+            <table class="station-table">
+                <thead>
+                    <tr>
+                        <th>Driver ID</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Contact-number</th>
+                        <th>License number</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01</td>
+                        <td>Ram</td>
+                        <td>Gaighat udayapur</td>
+                        <td>987223</td>
+                        <td>12345</td>
+                        <td>Active</td>
+                        <td>
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Shyam</td>
+                        <td>Putalisadak kathmandu</td>
+                        <td>98123532</td>
+                        <td>6789</td>
+                        <td>Active</td>
+                        <td>
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Hari</td>
+                        <td>kapan</td>
+                        <td>9842342</td>
+                        <td>101112</td>
+                        <td>Inactive</td>
+                        <td>
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+     <!-- =========== Scripts =========  -->
+     <script src="./main.js"></script>
+
+      <!-- signout popup information -->
+      <script src="./signout.js"></script>
+    
+      <!-- ====== ionicons ======= -->
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
