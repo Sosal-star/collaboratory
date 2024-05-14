@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
+    <title>Manage Stations | Station Management System</title>
+    <link rel="stylesheet" href="./manage.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+     <!-- Navigation -->
+     <div class="container1">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                       
+                        </span>
+                        <span class="title">Station manager</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./admindashboard.html">
+                        <span class="icon">
+                            <ion-icon name="grid-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./managebus.html">
+                        <span class="icon">
+                            <ion-icon name="bus-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Buses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./managedriver.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Drivers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./managestationmanager.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Station Manager</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./manageroutes.html">
+                        <span class="icon">
+                            <i class="fas fa-route"></i>
+                        </span>
+                        <span class="title">Manage Routes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./manageschedule.html">
+                        <span class="icon">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Schedule</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </span>
+                        <span class="title">Report</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span the="title">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./login.html" id="signout-link">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container2 main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h2>Add Station Manager</h2>
+            </div>
+            <div class="card-body">
+                <form id="add-station-manager-form">
+                    <input type="text" name="manager_id" placeholder="Enter manager ID" required>
+                    <input type="text" name="name" placeholder="Enter name" required>
+                    <input type="email" name="email" placeholder="Enter email" required>
+                    <input type="password" name="password" placeholder="Enter password" required>
+                    <input type="text" name="contact_number" placeholder="Enter contact number" required>
+                    <button type="submit">Add Station Manager</button>
+                </form>
+                <hr>
+                <h2>Manage Station Managers</h2>
+                <table class="station-table">
+                    <thead>
+                        <tr>
+                            <th>Station ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>Prabhat Bomjan</td>
+                            <td>Ratna park</td>
+                            <td>Active</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>Sujan karki</td>
+                            <td>koteshwor</td>
+                            <td>Active</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>003</td>
+                            <td>Kishor Bhandari</td>
+                            <td>Naxal</td>
+                            <td>Inactive</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button the="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+    <script src="./signout.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        document.getElementById('add-station-manager-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch('/addstationmanager', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.text())
+            .then(data => alert(data));
+        });
+    </script>
+</body>
+</html>
