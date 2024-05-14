@@ -26,13 +26,10 @@
     </nav>
 </header>
 <section id="Hero">
-    
     <div class="hero gap">
         <div class="headline">
             <h1>Select your travelling date:</h1>
         </div>
-       
-        
         <div class="left">
             <div class="column">
                 <label for="from">From</label>
@@ -40,12 +37,10 @@
                     <option value="">From</option>
                     <option value="kathmandu">kathmandu</option>
                     <option value="pokhara">pokhara</option>
-                    <option value="location3">Janakpur</option>
-                    <option value="location4">Ilam</option>
-                    <option value="location5">Chitwan</option>
-                    <option value="location6">Mustang</option>
-                    <option value="location7">Biratnagar</option>
-                    <option value="location8">Hetauda</option>
+                    <option value="biratnagar">biratnagar</option>
+                    <option value="birgunj">birgunj</option>
+                    <option value="surkhet">surkhet</option>
+                    <option value="dhangadhi">dhangadhi</option>
                 </select>
             </div>
             <div class="column">
@@ -54,12 +49,10 @@
                     <option value="">To</option>
                     <option value="kathmandu">kathmandu</option>
                     <option value="pokhara">pokhara</option>
-                    <option value="location3">Janakpur</option>
-                    <option value="location4">Ilam</option>
-                    <option value="location5">Chitwan</option>
-                    <option value="location6">Mustang</option>
-                    <option value="location7">Biratnagar</option>
-                    <option value="location8">Hetauda</option>
+                    <option value="biratnagar">biratnagar</option>
+                    <option value="birgunj">birgunj</option>
+                    <option value="surkhet">surkhet</option>
+                    <option value="dhangadhi">dhangadhi</option>
                 </select>
             </div>
             <div class="left">
@@ -68,10 +61,11 @@
                     <input type="date" id="date" class="date">
                 </div>
                 <button type="button" id="search-button" class="searchbutton">Search</button>
-        </div>
-        <div class="right">
-            <div class="buslist">
-                <h1 class="ablbl">Available Buses</h1>
+            </div>
+            <div class="right">
+                <div class="buslist">
+                    <h1 class="ablbl">Available Buses</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -80,7 +74,7 @@
         <div id="bus-results">
           <!-- Bus details will be dynamically inserted here -->
         </div>
-      </div>
+    </div>
 </section>
 
 <footer class="">
@@ -88,17 +82,17 @@
         <div class="right-foot">
             <h1 class="name">Yatra Nepal</h1>
             <div class="info">
-                <p> Yatra Nepal revolutionizes bus ticket booking with its user-friendly interface, extensive route options, and commitment to convenience. With real-time updates, secure payments, and comprehensive operator information, it's the ultimate destination for hassle-free travel planning. Say goodbye to long queues and uncertainty—experience the ease and efficiency of Yatra Nepal for all your bus journey needs.
-                </p>
+                <p>Yatra Nepal revolutionizes bus ticket booking with its user-friendly interface, extensive route options, and commitment to convenience. With real-time updates, secure payments, and comprehensive operator information, it's the ultimate destination for hassle-free travel planning. Say goodbye to long queues and uncertainty—experience the ease and efficiency of Yatra Nepal for all your bus journey needs.</p>
             </div>
         </div>
         <div class="left-foot">
             <div class="abt">
                 <h2>About Us</h2>
                 <ul>
-                    <li><a  href="#">Project Manager</a></li>
+                    <li><a href="#">Project Manager</a></li>
                     <li><a href="#">Business Analyst</a></li>
                     <li><a href="#">Developers</a></li>
+                </ul>
             </div>
             <div class="res">
                 <h2>Resources</h2>
@@ -115,7 +109,6 @@
                     <li>01-888000</li>
                     <li>+977-9841123456</li>
                     <li>sajilo.safar@contact.com</li>
-                   
                 </ul>
             </div>
         </div>
@@ -152,7 +145,7 @@
                                 <p>Status: ${bus.status}</p>
                                 <p>Departure: ${bus.departure_time}</p>
                                 <p>Arrival: ${bus.arrival_time}</p>
-                                <button onclick="bookBus(${bus.bus_id})">Book Now</button>
+                                <button onclick="bookBus(${bus.bus_id}, ${bus.route_id})">Book Now</button>
                             `;
                             resultsContainer.appendChild(busElement);
                         });
@@ -167,8 +160,11 @@
             });
         }
     });
-    </script>
-    
-    
+
+    function bookBus(busId, routeId) {
+        // Redirect to the seat selection page
+        window.location.href = `seat.html?busId=${busId}&routeId=${routeId}`;
+    }
+</script>
 </body>
 </html>

@@ -65,6 +65,7 @@ app.post('/login', (req, res) => {
           res.redirect('/admindashboard.html');
         } else if (role === 'customer') {
           res.redirect('/userdashboard.html');
+        
         } else {
           res.send('Login successful, redirecting...');
         }
@@ -95,9 +96,9 @@ app.get('/userdashboard.html', (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+//app.listen(port, () => {
+  //console.log(`Server running at http://localhost:${port}`);
+//});
 
 // Signup or register as a user
 app.post('/signup', (req, res) => {
@@ -242,7 +243,7 @@ app.post('/addschedule', (req, res) => {
           console.error('Error adding schedule:', error);
           return res.status(500).send('Error adding schedule to the database.');
       }
-      res.send('Schedule added successfully');
+      res.redirect('/manageschedule.html'); // Redirect back to the manage schedules page after successful insertion
   });
 });
 // Endpoint to get all schedules
@@ -261,7 +262,7 @@ app.post('/search-buses', (req, res) => {
   const { from, to, date } = req.body;  // assuming 'from' and 'to' are location IDs or names and 'date' is the travel date
   console.log({ from, to, date });
   const query = `
-      SELECT b.*, r.origin, r.destination, s.departure_time, s.arrival_time
+      SELECT b.*, r.origin, r.destination, s.departure_time, s.arrival_time, r.route_id
       FROM buses b
       JOIN schedules s ON b.bus_id = s.bus_id
       JOIN routes r ON s.route_id = r.route_id
@@ -278,6 +279,113 @@ app.post('/search-buses', (req, res) => {
       res.json(results);
   });
 });
+const http = require('http');
+const socketIo = require('socket.io');
+//const express = require('express');
+//const app = express();
+//const mysql = require('mysql');
 
 
 
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on('connection', socket => {
+  console.log('New client connected');
+
+  socket.on('subscribeToSeatUpdates', ({ busId, routeId }) => {
+    if (!busId || !routeId) {
+      socket.emit('error', { message: 'Invalid bus or route ID' });
+      return;
+    }
+
+    const channel = `updates_for_bus_${busId}`;
+    socket.join(channel);
+
+    const query = `
+      SELECT bs.*, r.price
+      FROM bus_seats bs
+      JOIN schedules s ON bs.schedule_id = s.schedule_id
+      JOIN routes r ON s.route_id = r.route_id
+      WHERE s.bus_id = ? AND r.route_id = ?;
+    `;
+    connection.query(query, [busId, routeId], (error, results) => {
+      if (error) {
+        console.error('Error fetching seats:', error);
+        socket.emit('error', { message: 'Error fetching seats' });
+        return;
+      }
+      if (results.length === 0) {
+        socket.emit('error', { message: 'No data found' });
+        return;
+      }
+      socket.emit('initialData', { seats: results, price: results[0].price });
+    });
+  });
+
+  socket.on('bookSeat', ({ seatNumber, busId, routeId }) => {
+    const updateQuery = `
+      UPDATE bus_seats
+      SET status = 'booked'
+      WHERE seat_number = ? AND schedule_id IN (
+        SELECT schedule_id FROM schedules WHERE bus_id = ? AND route_id = ?
+      ) AND status = 'available';
+    `;
+    connection.beginTransaction(err => {
+      if (err) {
+        socket.emit('bookingError', { message: 'Transaction Error' });
+        return;
+      }
+
+      connection.query(updateQuery, [seatNumber, busId, routeId], (updateError, updateResults) => {
+        if (updateError || updateResults.affectedRows === 0) {
+          connection.rollback();
+          socket.emit('bookingError', { message: 'Seat booking failed or already booked' });
+          return;
+        }
+
+        connection.commit(commitErr => {
+          if (commitErr) {
+            connection.rollback();
+            socket.emit('bookingError', { message: 'Commit Transaction Error' });
+            return;
+          }
+
+          socket.emit('bookingConfirmed', { seatNumber, status: 'booked' });
+          socket.to(`updates_for_bus_${busId}`).emit('seatUpdated', { seatNumber, status: 'booked' });
+        });
+      });
+    });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
+
+app.use(express.static('public'));
+
+app.get('/get-bus-route-info', (req, res) => {
+  const { busId, routeId } = req.query;
+  const query = `
+      SELECT bs.*, r.price
+      FROM bus_seats bs
+      JOIN schedules s ON bs.schedule_id = s.schedule_id
+      JOIN routes r ON s.route_id = r.route_id
+      WHERE s.bus_id = ? AND r.route_id = ?;
+  `;
+  connection.query(query, [busId, routeId], (error, results) => {
+      if (error) {
+          console.error('Error fetching seats and price:', error);
+          return res.status(500).send('Error fetching data');
+      }
+      if (results.length === 0) {
+          return res.status(404).send('No data found');
+      }
+      res.json({ seats: results, price: results[0].price });
+  });
+});
+
+server.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
