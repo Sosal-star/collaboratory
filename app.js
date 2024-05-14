@@ -6,7 +6,7 @@ const session = require('express-session');
 
 const app = express();
 const port = 3000;
-
+app.use(express.json());
 // Database connection
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -38,7 +38,7 @@ function getTableName(role) {
       return 'customer';
     case 'driver':
       return 'drivers';
-    case 'station_manager':
+    case 'stationmanager':
       return 'stationmanager';
     default:
       return null;
@@ -49,29 +49,30 @@ function getTableName(role) {
 app.post('/login', (req, res) => {
   const { email, password, role } = req.body;
   let tableName = getTableName(role);
-
   if (!tableName) {
     return res.status(400).send('Invalid role specified');
   }
-
   const query = `SELECT * FROM ${tableName} WHERE email = ?`;
-
   connection.query(query, [email], (error, results) => {
     if (error) {
       return res.status(500).send('Error on the server.');
     }
-
     if (results.length > 0) {
       const user = results[0];
       if (password === user.password) { // Simplified for clarity; use password hashing in production
         req.session.user = { id: user.id, role: user.role };
-
-        if (role === 'admin') {
-          res.redirect('/admindashboard.html');
-        } else if (role === 'customer') {
-          res.redirect('/userdashboard.html');
-        } else {
-          res.send('Login successful, redirecting...');
+        switch (role) {
+          case 'admin':
+            res.redirect('/admindashboard.html');
+            break;
+          case 'customer':
+            res.redirect('/userdashboard.html');
+            break;
+          case 'stationmanager':
+            res.redirect('/stationmanagerdashboard.html');
+            break;
+          default:
+            res.send('Login successful, redirecting...');
         }
       } else {
         return res.status(401).send('Incorrect password.');
@@ -81,7 +82,6 @@ app.post('/login', (req, res) => {
     }
   });
 });
-
 // Admin dashboard route
 app.get('/admindashboard', (req, res) => {
   if (req.session.user && req.session.user.role === 'admin') {
@@ -95,6 +95,15 @@ app.get('/admindashboard', (req, res) => {
 app.get('/userdashboard.html', (req, res) => {
   if (req.session.user && req.session.user.role === 'customer') {
     res.sendFile(path.join(__dirname, 'userdashboard.html'));
+  } else {
+    res.status(403).send('Unauthorized');
+  }
+});
+
+// StationManager Dashboard Route
+app.get('\stationmanagerdashboard.html', (req, res) => {
+  if (req.session.user && req.session.user.role === 'stationmanager') {
+    res.sendFile(path.join(__dirname, 'stationmanagerdashboard.html'));
   } else {
     res.status(403).send('Unauthorized');
   }
@@ -181,6 +190,157 @@ app.post('/editbus', (req, res) => {
       res.redirect('/managebus.html'); // Redirect back or handle differently
   });
 });
+// Endpoint to add a new driver
+app.post('/adddriver', (req, res) => {
+  // Extract driver details from the request body
+  const { driver_name, driver_email, driver_password, driver_contact, bus_id, driver_status } = req.body;
+
+  // SQL query to insert a new driver into the database
+  const query = 'INSERT INTO drivers (name, email, password, contact_number, bus_id, status) VALUES (?, ?, ?, ?, ?, ?)';
+  
+  connection.query(query, [driver_name, driver_email, driver_password, driver_contact, bus_id, driver_status], (error, results) => {
+      if (error) {
+          console.error('Error adding driver:', error);
+          return res.status(500).send('Error adding driver to the database.');
+      }
+      res.redirect('/managedriver.html'); // Redirect back to the manage bus page after successful insertion
+  });
+});
+// Endpoint to get all drivers
+app.get('/getdrivers', (req, res) => {
+  const query = 'SELECT * FROM drivers';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching drivers:', error);
+          return res.status(500).send('Error fetching drivers.');
+      }
+      res.json(results); // Send driver data as JSON
+  });
+});
+// Endpoint to get all drivers for station manager
+app.get('/getstationmanagerdrivers', (req, res) => {
+  const query = 'SELECT * FROM drivers';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching drivers:', error);
+          return res.status(500).send('Error fetching drivers.');
+      }
+      res.json(results); // Send driver data as JSON
+  });
+});
+
+// Endpoint to add a new route
+app.post('/addroute', (req, res) => {
+  const { origin, destination, distance, duration, status, bus_id } = req.body;
+
+  // SQL query to insert a new route into the database
+  const query = 'INSERT INTO routes (origin, destination, distance, duration, status, bus_id) VALUES (?, ?, ?, ?, ?, ?)';
+  
+  connection.query(query, [origin, destination, distance, duration, status, bus_id], (error, results) => {
+      if (error) {
+          console.error('Error adding route:', error);
+          return res.status(500).send('Error adding route to the database.');
+      }
+      res.redirect('/manageroutes.html'); // Redirect back to the manage routes page after successful insertion
+  });
+});
+// Endpoint to get all routes
+app.get('/getroutes', (req, res) => {
+  const query = 'SELECT * FROM routes';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching routes:', error);
+          return res.status(500).send('Error fetching routes.');
+      }
+      res.json(results); // Send route data as JSON
+  }); 
+});
+// Endpoint to get all routes for station manager
+app.get('/getstationmanagerroutes', (req, res) => {
+  const query = 'SELECT * FROM routes';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching routes:', error);
+          return res.status(500).send('Error fetching routes.');
+      }
+      res.json(results); // Send route data as JSON
+  });
+});
+
+// Endpoint to add a new schedule
+app.post('/addschedule', (req, res) => {
+  const { route_id, bus_id, departuretime, arrivaltime, status } = req.body;
+  console.log(departuretime, arrivaltime);
+
+  // SQL query to insert a new schedule into the database
+  const query = 'INSERT INTO schedules (route_id, bus_id, departure_time, arrival_time, status) VALUES (?, ?, ?, ?, ?)';
+  
+  connection.query(query, [route_id, bus_id, departuretime, arrivaltime, status], (error, results) => {
+      if (error) {
+          console.error('Error adding schedule:', error);
+          return res.status(500).send('Error adding schedule to the database.');
+      }
+      res.send('Schedule added successfully');
+  });
+});
+// Endpoint to get all schedules
+app.get('/getschedules', (req, res) => {
+  const query = 'SELECT * FROM schedules';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching schedules:', error);
+          return res.status(500).send('Error fetching schedules.');
+      }
+      res.json(results); // Send schedule data as JSON
+  });
+});
+// Endpoint to get all schedules for station manager
+app.get('/getstationmanagerschedules', (req, res) => {
+  const query = 'SELECT * FROM schedules';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching schedules:', error);
+          return res.status(500).send('Error fetching schedules.');
+      }
+      res.json(results); // Send schedule data as JSON
+  });
+});
 
 
+app.post('/search-buses', (req, res) => {
+  const { from, to, date } = req.body;  // assuming 'from' and 'to' are location IDs or names and 'date' is the travel date
+  console.log({ from, to, date });
+  const query = `
+      SELECT b.*, r.origin, r.destination, s.departure_time, s.arrival_time
+      FROM buses b
+      JOIN schedules s ON b.bus_id = s.bus_id
+      JOIN routes r ON s.route_id = r.route_id
+      WHERE r.origin = ? AND r.destination = ? AND DATE(s.departure_time) = ?
+      
+  `;
 
+  // Executing the query
+  connection.query(query, [from, to, date], (error, results) => {
+      if (error) {
+          console.error('Error fetching buses:', error);
+          return res.status(500).send('Error fetching buses.');
+      }
+      res.json(results);
+  });
+});
+// Add new station manager endpoint
+app.post('/addstationmanager', (req, res) => {
+  console.log(req.body);  // Log the body to see what is received
+  const { manager_id, name, email, password, contact_number } = req.body;
+  if (!email) {
+      return res.status(400).send('Email is required and cannot be null.');
+  }
+  const query = 'INSERT INTO stationmanager (manager_id, name, email, password, contact_number) VALUES (?, ?, ?, ?, ?)';
+  connection.query(query, [manager_id, name, email, password, contact_number], (error, results) => {
+      if (error) {
+          console.error('Error adding station manager:', error);
+          return res.status(500).send('Error adding station manager to the database: ' + error.message);
+      }
+      res.send('Station manager added successfully');
+  });
+});

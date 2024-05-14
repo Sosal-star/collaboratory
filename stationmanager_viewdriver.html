@@ -1,0 +1,89 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
+    <title>View Driver | Station Management System</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="manage.css">
+</head>
+<body>
+    <!-- ===============Navigation ================ --> 
+    <div class="container1">
+        <div class="navigation">
+            <ul>
+                <li class="logowrapper">
+                    <img src="logo.jpg" alt="Bus logo" class="logo">
+                    <span class="title">Sajilo safari</span>
+                </li>
+                <li><a href="./stationmanagerdashboard.html"><span class="icon"><ion-icon name="grid-outline"></ion-icon></span><span class="title">Dashboard</span></a></li>
+                <li><a href="./stationmanager_viewdriver.html"><span class="icon"><ion-icon name="people-outline"></ion-icon></span><span class="title">View Drivers</span></a></li>
+                <li><a href="./stationmanager_viewroutes.html"><span class="icon"><i class="fas fa-route"></i></span><span class="title">View Routes</span></a></li>
+                <li><a href="./stationmanager_viewschedule.html"><span class="icon"><ion-icon name="settings-outline"></ion-icon></span><span class="title">View Schedule</span></a></li>
+                <li><a href="#" id="signout-link"><span class="icon"><ion-icon name="log-out-outline"></ion-icon></span><span class="title">Sign Out</span></a></li>
+            </ul>
+        </div>
+        <!-- main -->
+        <div class="container2 main">
+            <div class="topbar">
+                <div class="toggle"><ion-icon name="menu-outline"></ion-icon></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><h2>View Driver</h2></div>
+                <!-- details -->
+                <div class="card-body">
+                    <table class="station-table">
+                        <thead>
+                            <tr>
+                                <th>Driver ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Contact Number</th>
+                                <th>Bus Assign</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stationmanagerdriverList">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- =========== Scripts =========  -->
+    <script>
+        function fetchDrivers() {
+            fetch('/getstationmanagerdrivers')
+                .then(response => response.json())
+                .then(drivers => {
+                    const driverList = document.getElementById('stationmanagerdriverList'); // Ensure you have a tbody element with this ID
+                    driverList.innerHTML = ''; // Clear existing driver list
+
+                    drivers.forEach(driver => {
+                        driverList.innerHTML += `
+                            <tr>
+                                <td>${driver.driver_id}</td>
+                                <td>${driver.name}</td>
+                                <td>${driver.email}</td>
+                                <td>${driver.password}</td>
+                                <td>${driver.contact_number}</td>
+                                <td>${driver.bus_id}</td>
+                                <td>${driver.status}</td>
+                            </tr>
+                        `;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching drivers:', error);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchDrivers);
+    </script>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
