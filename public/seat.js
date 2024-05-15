@@ -39,6 +39,22 @@ document.addEventListener('DOMContentLoaded', function () {
     socket.on('error', data => {
         console.error(data.message);
     });
+    document.getElementById('confirm-booking').addEventListener('click', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const busId = urlParams.get('busId');
+        const routeId = urlParams.get('routeId');
+        const seats = selectedSeats.join(', ');
+        const totalFare = parseFloat(document.getElementById('total-fare').textContent.split(': ')[1]);
+
+        const form = document.getElementById('booking-form');
+        form.querySelector('#form-busId').value = busId;
+        form.querySelector('#form-routeId').value = routeId;
+        form.querySelector('#form-seats').value = seats;
+        form.querySelector('#form-totalFare').value = totalFare;
+
+        form.submit();
+    });
+
 });
 
 function displaySeats(seatData) {

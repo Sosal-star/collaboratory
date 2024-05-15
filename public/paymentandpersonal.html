@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment and Personal Information</title>
+    <link rel="stylesheet" href="paymentandpersonal.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Payment and Personal Information</h2>
+        <form id="payment-form" method="POST" action="https://uat.esewa.com.np/epay/main">
+            <input type="hidden" name="amt" id="amt">
+            <input type="hidden" name="pid" id="pid">
+            <input type="hidden" name="txAmt" id="txAmt" value="0">
+            <input type="hidden" name="psc" id="psc" value="0">
+            <input type="hidden" name="pdc" id="pdc" value="0">
+            <input type="hidden" name="tAmt" id="tAmt">
+            <input type="hidden" name="scd" id="scd" value="EPAYTEST">
+            <input type="hidden" name="su" value="http://localhost:3000/esewa-success">
+            <input type="hidden" name="fu" value="http://localhost:3000/esewa-failure">
+            <input type="hidden" name="signedFieldNames" id="signedFieldNames" value="amt,txAmt,psc,pdc,tAmt,pid,scd">
+            <input type="hidden" name="signature" id="signature">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+
+            <p>Bus Details:</p>
+            <p id="bus-details"></p>
+            <p>Seat Numbers:</p>
+            <p id="seat-numbers"></p>
+
+            <button type="button" onclick="generatePaymentForm()">Pay with eSewa</button>
+        </form>
+
+        <!-- Ticket Section -->
+        <div class="ticket-container" id="ticket" style="display: none;">
+            <h2>Ticket</h2>
+            <p id="ticket-name"></p>
+            <p id="ticket-email"></p>
+            <p id="ticket-bus-details"></p>
+            <p id="ticket-seat-numbers"></p>
+            <p id="ticket-total-fare"></p>
+            <button onclick="downloadTicket()">Download Ticket</button>
+        </div>
+    </div>
+    <script src="paymentandpersonal.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</body>
+</html>
+
+

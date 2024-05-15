@@ -36,9 +36,9 @@ function getTableName(role) {
       return 'admin';
     case 'customer':
       return 'customer';
-    case 'driver':
+    case 'drivers':
       return 'drivers';
-    case 'station_manager':
+    case 'stationmanager':
       return 'stationmanager';
     default:
       return null;
@@ -61,13 +61,21 @@ app.post('/login', (req, res) => {
       const user = results[0];
       if (password === user.password) { // Simplified for clarity; use password hashing in production
         req.session.user = { id: user.id, role: user.role };
-        if (role === 'admin') {
-          res.redirect('/admindashboard.html');
-        } else if (role === 'customer') {
-          res.redirect('/userdashboard.html');
-        
-        } else {
-          res.send('Login successful, redirecting...');
+        switch (role) {
+          case 'admin':
+            res.redirect('/admindashboard.html');
+            break;
+          case 'customer':
+            res.redirect('/userdashboard.html');
+            break;
+          case 'stationmanager':
+            res.redirect('/stationmanagerdashboard.html');
+            break;
+            case 'drivers':
+              res.redirect('/driverdashboard.html');
+              break;
+          default:
+            res.send('Login successful, redirecting...');
         }
       } else {
         return res.status(401).send('Incorrect password.');
@@ -91,6 +99,22 @@ app.get('/admindashboard', (req, res) => {
 app.get('/userdashboard.html', (req, res) => {
   if (req.session.user && req.session.user.role === 'customer') {
     res.sendFile(path.join(__dirname, 'userdashboard.html'));
+  } else {
+    res.status(403).send('Unauthorized');
+  }
+});
+// StationManager Dashboard Route
+app.get('/stationmanagerdashboard.html', (req, res) => {
+  if (req.session.user && req.session.user.role === 'stationmanager') {
+    res.sendFile(path.join(__dirname, 'stationmanagerdashboard.html'));
+  } else {
+    res.status(403).send('Unauthorized');
+  }
+});
+// Driver Dashboard Route
+app.get('/driverdashboard.html', (req, res) => {
+  if (req.session.user && req.session.user.role === 'drivers') {
+    res.sendFile(path.join(__dirname, 'driverdashboard.html'));
   } else {
     res.status(403).send('Unauthorized');
   }
@@ -204,6 +228,17 @@ app.get('/getdrivers', (req, res) => {
       res.json(results); // Send driver data as JSON
   });
 });
+// Endpoint to get all drivers for station manager
+app.get('/getstationmanagerdrivers', (req, res) => {
+  const query = 'SELECT * FROM drivers';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching drivers:', error);
+          return res.status(500).send('Error fetching drivers.');
+      }
+      res.json(results); // Send driver data as JSON
+  });
+});
 // Endpoint to add a new route
 app.post('/addroute', (req, res) => {
   const { origin, destination, distance, duration, status, bus_id } = req.body;
@@ -230,6 +265,18 @@ app.get('/getroutes', (req, res) => {
       res.json(results); // Send route data as JSON
   });
 });
+// Endpoint to get all routes for station manager
+app.get('/getstationmanagerroutes', (req, res) => {
+  const query = 'SELECT * FROM routes';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching routes:', error);
+          return res.status(500).send('Error fetching routes.');
+      }
+      res.json(results); // Send route data as JSON
+  });
+});
+
 // Endpoint to add a new schedule
 app.post('/addschedule', (req, res) => {
   const { route_id, bus_id, departuretime, arrivaltime, status } = req.body;
@@ -248,6 +295,17 @@ app.post('/addschedule', (req, res) => {
 });
 // Endpoint to get all schedules
 app.get('/getschedules', (req, res) => {
+  const query = 'SELECT * FROM schedules';
+  connection.query(query, (error, results) => {
+      if (error) {
+          console.error('Error fetching schedules:', error);
+          return res.status(500).send('Error fetching schedules.');
+      }
+      res.json(results); // Send schedule data as JSON
+  });
+});
+// Endpoint to get all schedules for station manager
+app.get('/getstationmanagerschedules', (req, res) => {
   const query = 'SELECT * FROM schedules';
   connection.query(query, (error, results) => {
       if (error) {
@@ -379,11 +437,83 @@ app.get('/get-bus-route-info', (req, res) => {
           console.error('Error fetching seats and price:', error);
           return res.status(500).send('Error fetching data');
       }
-      if (results.length === 0) {
-          return res.status(404).send('No data found');
-      }
-      res.json({ seats: results, price: results[0].price });
+      res.json({ seats: results, price: results[0]?.price });
   });
+});
+
+app.get('/esewa-success', (req, res) => {
+  const { amt, pid, refId, name, email, busId, routeId, seats } = req.query;
+
+  if (!pid || !amt || !refId || !name || !email || !busId || !routeId || !seats) {
+      console.error('Missing required parameters');
+      return res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}`);
+  }
+
+  const query = `
+      INSERT INTO transactions (esewa_transaction_id, customer_name, customer_email, bus_id, route_id, seat_numbers, amount, status)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const data = [
+      refId,
+      name,
+      email,
+      busId,
+      routeId,
+      seats,
+      amt,
+      'confirmed'
+  ];
+
+  connection.query(query, data, (error, results) => {
+      if (error) {
+          console.error('Error saving transaction:', error);
+          return res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}&totalFare=${amt}`);
+      }
+
+      res.redirect(`/paymentandpersonal.html?status=success&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}&totalFare=${amt}`);
+  });
+});
+
+app.get('/esewa-failure', (req, res) => {
+  const { name, email, busId, routeId, seats } = req.query;
+
+  if (!name || !email || !busId || !routeId || !seats) {
+      console.error('Missing required parameters');
+      return res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}`);
+  }
+
+  res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}`);
+});
+
+const crypto = require('crypto');
+const secretKey = '8gBm/:&EnhH.1/q';
+
+app.post('/generate-signature', (req, res) => {
+    const { amt, txAmt, psc, pdc, tAmt, pid, scd, signedFieldNames } = req.body;
+
+    const payloadString = `amt=${amt}&txAmt=${txAmt}&psc=${psc}&pdc=${pdc}&tAmt=${tAmt}&pid=${pid}&scd=${scd}`;
+    const hash = crypto.createHmac('sha512', secretKey).update(payloadString).digest('hex');
+
+    res.json({ signature: hash });
+});
+// Endpoint to get logged-in driver's data
+app.get('/driverdata', (req, res) => {
+  if (req.session.user && req.session.user.role === 'drivers') {
+    const query = 'SELECT * FROM drivers WHERE email = ?';
+    connection.query(query, [req.session.user.email], (error, results) => {
+      if (error) {
+        console.error('Error fetching driver data:', error);
+        return res.status(500).send('Error fetching driver data.');
+      }
+      if (results.length === 0) {
+        return res.status(404).send('Driver not found.');
+      }
+      res.json(results[0]);
+    });
+  } else {
+    res.status(403).send('Unauthorized');
+  }
 });
 
 server.listen(port, () => {

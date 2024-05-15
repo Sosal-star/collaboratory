@@ -1,0 +1,97 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input[type="text"],
+form input[type="email"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form p {
+    margin: 10px 0;
+}
+
+form p#bus-details,
+form p#seat-details {
+    font-weight: bold;
+    background-color: #e9e9e9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+/* Add your existing CSS code here */
+
+/* New styles for the containers */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.form-container, .ticket-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 10px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.form-container h2, .ticket-container h2 {
+    text-align: center;
+}
+
+.form-container label, .form-container input, .form-container button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.ticket-container p {
+    margin: 5px 0;
+    text-align: left;
+}
+

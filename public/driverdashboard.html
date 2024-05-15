@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
+    <title>View Schedule | Station Management System</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="manage.css">
+</head>
+<body>
+    <!-- ===============Navigation ================ --> 
+    <div class="container1">
+        <div class="navigation">
+            <ul>
+                <li class="logowrapper">
+                    <img src="logo.jpg" alt="Bus logo" class="logo">
+                    <span class="title">Sajilo safari</span>
+                </li>
+                <li>
+                    <a href="./driverdashboard.html">
+                        <span class="icon">
+                            <ion-icon name="grid-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="signout-link">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- main -->
+        <div class="container2 main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>View Schedule</h2>
+                </div>
+                <!-- details -->
+                <div class="card-body">
+                    <table class="station-table">
+                        <thead>
+                            <tr>
+                                <th>Driver Id</th>
+                                <th>Name</th>
+                                <th>Bus Id</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Contact Number</th>
+                            </tr>
+                        </thead>
+                        <tbody id="driver-info">
+                            <!-- Driver info will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="./main.js"></script>
+    <!-- signout popup information -->
+    <script src="./signout.js"></script>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/driverdata')
+                .then(response => response.json())
+                .then(data => {
+                    const driverInfo = document.getElementById('driver-info');
+                    const row = `<tr>
+                        <td>${data.driver_id}</td>
+                        <td>${data.name}</td>
+                        <td>${data.bus_id}</td>
+                        <td>${data.email}</td>
+                        <td>${data.password}</td>
+                        <td>${data.contact_number}</td>
+                    </tr>`;
+                    driverInfo.innerHTML = row;
+                })
+                .catch(error => console.error('Error fetching driver data:', error));
+        });
+    </script>
+</body>
+</html>
