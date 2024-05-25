@@ -1,39 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Login Form | Bus management system</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Bus Booking System - Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 </head>
 <body>
-  <!-- making a form -->
-  <div class="wrapper">
-    <form action="#">
-      <h2>Login</h2>
-        <div class="input-field">
-        <input type="email" required>
-        <label>Enter your email</label>
-      </div>
 
+<div class="login-container">
+  <h2>Login to Bus Booking System</h2>
+  <form id="login-form" action="/login" method="post">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+      <label for="role">Role:</label>
+      <select id="role" name="role">  
+        <option value="admin">Admin</option>  
+        <option value="stationmanager">Station manager</option>  
+        <option value="drivers">Driver</option>  
+        <option value="customer">Customer</option>  
+        
+        </select>  
 
-      <div class="input-field">
-        <input type="password" required>
-        <label>Enter your password</label>
-      </div>
-      <div class="forget">
-        <label for="remember">
-          <input type="checkbox" id="remember">
-          <p>Remember me</p>
-        </label>
-        <a href="#">Forgot password?</a>
-      </div>
-      <button type="submit">Log In</button>
-      <!-- for signup -->
-      <div class="register">
-        <p>Don't have an account? <a href="signup.html">Register</a></p>
-      </div>
-    </form>
+    </div>
+    
+    <div class="form-group">
+      <button type="submit">Login</button>
+    </div>
+    <div class="form-group">
+      <span class="error-message" id="error-message"></span>
+    </div>
+  </form>
+  <div class="signup-link">
+    Don't have an account? <a href="./signup.html">Signup</a>
   </div>
+</div>
+
 </body>
 </html>
