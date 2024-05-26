@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
-    <title>Manage Stations | Station Management System</title>
-    <link rel="stylesheet" href="./manage.css">
+    <title>Manage Bus | Station Management System</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="manage.css">
 
 </head>
 <body>
@@ -15,14 +15,16 @@
      <div class="container1">
         <div class="navigation">
             <ul>
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                       
-                        </span>
-                        <span class="title">Station manager</span>
-                    </a>
-                </li>
+                <li class="logowrapper">
+                   
+                        
+                    <img src="logo.jpg" alt="Bus logo" class="logo">
+                   
+                  
+
+                    <span class="title">Sajilo safari</span>
+             
+            </li>
                 <li>
                     <a href="./index.html">
                         <span class="icon">
@@ -62,7 +64,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="./manageroutes.html">
                         <span class="icon">
                             <i class="fas fa-route"></i>
                         </span>
@@ -71,7 +73,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="./manageschedule.html">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
@@ -79,23 +81,23 @@
                     </a>
                 </li>
 
-                <li>
+                <!-- <li>
                     <a href="#">
                         <span class="icon">
                             <ion-icon name="lock-closed-outline"></ion-icon>
                         </span>
                         <span class="title">Report</span>
                     </a>
-                </li>
+                </li> -->
 
-                <li>
-                    <a href="#">
+                <!-- <li>
+                    <a href = "#">
                         <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
+                            <ion-icon name="book-outline"></ion-icon>
                         </span>
-                        <span class="title">Settings</span>
+                        <span class="title">Contents</span>
                     </a>
-                </li>
+                </li> -->
                 <li>
                     <a href="#" id="signout-link">
                         <span class="icon">
@@ -107,35 +109,54 @@
             </ul>
         </div>
 
+<!-- main -->
 
-
-    <div class="container2 main">
-        <div class="topbar">
-            <div class="toggle">
-                <ion-icon name="menu-outline"></ion-icon>
-            </div>
-            </div>
-        <div class="card">
-            <div class="card-header">
-                <h2>Manage Stations</h2>
-            </div>
-            <div class="card-body">
-                <button class="add-btn">Add Station manager</button>
+<div class="container2 main">
+    <div class="topbar">
+        <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Manage Station manager</h2>
+            <button class="add-btn" onclick="showAddBusForm()">Add manager</button>
+        </div>
+        <div class="add-bus-form" style="display:none;">
+            <form id="addBusForm" action="/addbus" method="POST">
+                <label for="registrationnumber">Manager ID:</label>
+                <input type="text" id="registrationnumber" name="registrationnumber" required>
+                <label for="model">Name:</label>
+                <input type="text" id="model" name="model" required>
+                <label for="capacity">Email</label>
+                <input type="text" id="model" name="model" required>
+                <label for="capacity">Password</label>
+                <input type="text" id="capacity" name="capacity" required>
+                <label for="status">Contact number:</label>
+                <input type="text" id="contact"name="contact" required>
+                
+                <button type="submit" class="Addbutton">Add manager</button>
+            </form>
+        </div>
                 <table class="station-table">
                     <thead>
                         <tr>
-                            <th>Station ID</th>
+                            <th>Manager ID</th>
                             <th>Name</th>
-                            <th>Location</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Contact-number</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>001</td>
-                            <td>Prabhat Bomjan</td>
-                            <td>Ratna park</td>
+                            <td>01</td>
+                            <td>Ram</td>
+                            <td>Ram@gmail.com</td>
+                            <td>987223</td>
+                            <td>12345</td>
                             <td>Active</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
@@ -144,8 +165,10 @@
                         </tr>
                         <tr>
                             <td>002</td>
-                            <td>Sujan karki</td>
-                            <td>koteshwor</td>
+                            <td>Shyam</td>
+                            <td>Shyam@gmail.com</td>
+                            <td>98123532</td>
+                            <td>6789</td>
                             <td>Active</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
@@ -154,8 +177,10 @@
                         </tr>
                         <tr>
                             <td>003</td>
-                            <td>Kishor Bhandari</td>
-                            <td>Naxal</td>
+                            <td>Hari</td>
+                            <td>kapan</td>
+                            <td>9842342</td>
+                            <td>101112</td>
                             <td>Inactive</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
@@ -167,12 +192,17 @@
             </div>
         </div>
     </div>
-
+    <script>
+        function showAddBusForm() {
+            var form = document.querySelector('.add-bus-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
      <!-- =========== Scripts =========  -->
      <script src="./main.js"></script>
 
-      <!-- signout popup information -->
-      <script src="./signout.js"></script>
+     <!-- signout popup information -->
+     <script src="./signout.js"></script>
       <!-- ====== ionicons ======= -->
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

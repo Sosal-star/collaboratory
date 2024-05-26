@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
+    <title>View Routes | Station Management System</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="manage.css">
+
+</head>
+<body>
+
+     <!-- ===============Navigation ================ --> 
+     <div class="container1">
+        <div class="navigation">
+            <ul>
+                <li class="logowrapper">
+                   
+                        
+                    <img src="logo.jpg" alt="Bus logo" class="logo">
+                   
+                  
+
+                    <span class="title">Sajilo safari</span>
+             
+            </li>
+            <li>
+
+                <a href="./driverside.html">
+                    <span class="icon">
+                        <ion-icon name="grid-outline"></ion-icon>
+                    </span>
+                    <span class="title">Dashboard</span>
+                  
+                </a>
+            </li>
+                
+
+               
+
+                <li>
+                    <a href="./viewRoutes.html">
+                        <span class="icon">
+                            <i class="fas fa-route"></i>
+                        </span>
+                        <span class="title">View Routes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./viewSchedule.html">
+                        <span class="icon">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">View Schedule</span>
+                    </a>
+                </li>
+
+               
+                <li>
+                    <a href="#" id="signout-link">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+<!-- main -->
+
+<div class="container2 main">
+    <div class="topbar">
+        <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>View Routes</h2>
+            
+        </div>
+    
+        <!-- details -->
+    
+        <div class="card-body">
+            <table class="station-table">
+                <thead>
+                    <tr>
+                        <th>Route ID</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>Distance</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                     
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01</td>
+                        <td>Ratnapark</td>
+                        <td>chahabeel</td>
+                        <td>10km</td>
+                        <td>30 min </td>
+                        <td>Active</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>naxal</td>
+                        <td>maharjgunj</td>
+                        <td>5 km</td>
+                        <td>10 min </td>
+                        <td>Active</td>
+                       
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+     <!-- =========== Scripts =========  -->
+     <script src="./main.js"></script>
+
+      <!-- signout popup information -->
+      <script src="./signout.js"></script>
+    
+      <!-- ====== ionicons ======= -->
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

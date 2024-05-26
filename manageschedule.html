@@ -25,7 +25,6 @@
                     <span class="title">Sajilo safari</span>
              
             </li>
-                
                 <li>
                     <a href="./index.html">
                         <span class="icon">
@@ -120,33 +119,33 @@
     </div>
     <div class="card">
         <div class="card-header">
-            <h2>Manage Driver</h2>
-            <button class="add-btn" onclick="showAddBusForm()">Add Driver</button>
+            <h2>Manage Schedule</h2>
+            <button class="add-btn" onclick="showAddBusForm()">Add Schedule</button>
         </div>
         <div class="add-bus-form" style="display:none;">
             <form id="addBusForm" action="/addbus" method="POST">
-                <label for="registrationnumber">Driver ID:</label>
+                <label for="registrationnumber">Schedule ID:</label>
                 <input type="text" id="registrationnumber" name="registrationnumber" required>
-                <label for="model">Name:</label>
+                <label for="model">Route id:</label>
                 <input type="text" id="model" name="model" required>
-                <label for="capacity">Address:</label>
+                <label for="capacity">bus id:</label>
                 <input type="text" id="model" name="model" required>
-                <label for="capacity">Contact-number:</label>
+                <label for="capacity">Departure time:</label>
                 <input type="text" id="capacity" name="capacity" required>
-                <label for="license">License number:</label>
-                <input type="text" id="license" name="license" required>
-               
-                <button type="submit" class="Addbutton">Add Driver</button>
+                <label for="status">Arrival time:</label>
+                <input type="text" id="Arrival time" name="arrival time" required>
+                
+                <button type="submit" class="Addbutton">Add Routes</button>
             </form>
         </div>
                 <table class="station-table">
                     <thead>
                         <tr>
-                            <th>Driver ID</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Contact-number</th>
-                            <th>License number</th>
+                            <th>Schedule Id</th>
+                            <th>Route Id</th>
+                            <th>Bus Id</th>
+                            <th>Departure time</th>
+                            <th>Arrival time</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -154,10 +153,10 @@
                     <tbody>
                         <tr>
                             <td>01</td>
-                            <td>Ram</td>
-                            <td>Gaighat udayapur</td>
-                            <td>987223</td>
-                            <td>12345</td>
+                            <td>009</td>
+                            <td>001</td>
+                            <td>10:00 am</td>
+                            <td>12:00 pm </td>
                             <td>Active</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
@@ -165,29 +164,18 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>002</td>
-                            <td>Shyam</td>
-                            <td>Putalisadak kathmandu</td>
-                            <td>98123532</td>
-                            <td>6789</td>
+                            <td>01</td>
+                            <td>009</td>
+                            <td>001</td>
+                            <td>10:00 am</td>
+                            <td>12:00 pm </td>
                             <td>Active</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
                                 <button class="delete-btn">Delete</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>Hari</td>
-                            <td>kapan</td>
-                            <td>9842342</td>
-                            <td>101112</td>
-                            <td>Inactive</td>
-                            <td>
-                                <button class="edit-btn">Edit</button>
-                                <button class="delete-btn">Delete</button>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>

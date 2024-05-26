@@ -9,7 +9,6 @@
     <title>Responsive Admin Dashboard </title>
     <!-- ======= Styles ====== --> 
      <link rel="stylesheet" href="index.css">
-    
 </head>
 
 <body>
@@ -30,7 +29,7 @@
 
                 <li>
 
-                    <a href="./index.html">
+                    <a href="./managerside.html">
                         <span class="icon">
                             <ion-icon name="grid-outline"></ion-icon>
                         </span>
@@ -38,41 +37,25 @@
                       
                     </a>
                 </li>
-                <li>
-
-                    <a href="./managebus.html">
-                        <span class="icon">
-                            <ion-icon name="bus-outline"></ion-icon>
-                        </span>
-                        <span class="title">Manage Buses</span>
-                      
-                    </a>
-                </li>
+               
 
                 <li>
-                    <a href="./managedriver.html">
+                    <a href="./manage_viewdriver.html">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
-                        <span class="title">Manage Drivers</span>
+                        <span class="title">View Drivers</span>
                     </a>
                 </li>
 
-                <li>
-                    <a href="./stationmanager.html">
-                        <span class="icon">
-                            <ion-icon name="people-outline"></ion-icon>
-                        </span>
-                        <span class="title">Manage Station Manager</span>
-                    </a>
-                </li>
+                
 
                 <li>
                     <a href="./manageroutes.html">
                         <span class="icon">
                             <i class="fas fa-route"></i>
                         </span>
-                        <span class="title">Manage Routes</span>
+                        <span class="title">View Routes</span>
                     </a>
                 </li>
 
@@ -81,27 +64,10 @@
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
-                        <span class="title">Manage Schedule</span>
+                        <span class="title">View Schedule</span>
                     </a>
                 </li>
 
-                <!-- <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="lock-closed-outline"></ion-icon>
-                        </span>
-                        <span class="title">Report</span>
-                    </a>
-                </li> -->
-
-                <!-- <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="book-outline"></ion-icon>
-                        </span>
-                        <span class="title">Contents</span>
-                    </a>
-                </li> -->
                 <li>
                     <a href="#" id="signout-link">
                         <span class="icon">
@@ -182,7 +148,9 @@
                 </div>
             </div>
             <div class="chartcontainer">
+                <h3>Total Revenue</h3>
                 
+                <div id="piechart" class="piechart"></div>
     
 
             </div>

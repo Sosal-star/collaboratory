@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
+    <title>Manage Routes | Station Management System</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="manage.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <div class="container1">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                       
+                        </span>
+                        <span class="title">Bus-managementsystem</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./index.html">
+                        <span class="icon">
+                            <ion-icon name="grid-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                      
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./managebus.html">
+                        <span class="icon">
+                            <ion-icon name="bus-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Buses</span>
+                      
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./managedriver.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Drivers</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./stationmanager.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Station Manager</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./manageroutes.html">
+                        <span class="icon">
+                            <i class="fas fa-route"></i>
+                        </span>
+                        <span class="title">Manage Routes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Schedule</span>
+                    </a>
+                </li>
+
+                <!-- <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </span>
+                        <span class="title">Report</span>
+                    </a>
+                </li> -->
+
+                <li>
+                    <a href = "#">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="signout-link">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container2 main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h2>Manage Routes</h2>
+            </div>
+            <div class="card-body">
+                <!-- Your manage routes content goes here -->
+                <!-- Example content -->
+                <button class="add-btn">Add Route</button>
+                <table class="route-table">
+                    <thead>
+                        <tr>
+                            <th>Route ID</th>
+                            <th>Start Station</th>
+                            <th>End Station</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Station A</td>
+                            <td>Station B</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <!-- Add more route rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./main.js"></script>
+    <script src="./signout.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

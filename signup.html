@@ -1,37 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Login Form | CodingLab</title> 
-    <link rel="stylesheet" href="./signup.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-  </head>
-  <body>
-    <div class="container">
-      <div class="wrapper">
-        <div class="title"><span>Signup-Form</span></div>
-        <form action="#">
-          <div class="row">
-            <i class="fas fa-user"></i>
-            <input type="email" placeholder="Email" required>
-          </div>
-          <div class="row">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" required>
-          </div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Booking System - Signup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-          <div class="row">
-            <i class="fas fa-lock"></i>
-            <input type="Confirm-password" placeholder="Confirm-password" required>
-          </div>
-          <div class="row button">
-            <input type="submit" value="Signup">
-          </div>
-          <div class="signup-link">Already have an account? <a href="./login.html">login</a></div>
-        </form>
-      </div>
+<div class="login-container">
+  <h2>Signup to Bus Booking System</h2>
+  <form id="login-form" action="/signup" method="post">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
     </div>
-
-  </body>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
+    </div>
+    <div class="form-group">
+      <label for="contactNumber">Contact Number:</label>
+      <input type="text" id="contactNumber" name="contactNumber" required>
+    </div>
+    
+    <div class="form-group">
+      <button type="submit">Signup</button>
+    </div>
+  </form>
+  <div class="signup-link">
+    Already have an account? <a href="./login.html">Login</a>
+  </div>
+</div>
+</body>
 </html>
