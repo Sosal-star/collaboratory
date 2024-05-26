@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2024 at 08:26 AM
+-- Generation Time: May 26, 2024 at 07:09 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -75,11 +75,11 @@ CREATE TABLE `buses` (
 --
 
 INSERT INTO `buses` (`bus_id`, `registration_number`, `model`, `capacity`, `status`) VALUES
-(1, 'BA 4 kha 5678', 'Volvo', 42, 'active'),
-(2, 'BA 5 Kha 1234', 'Tata', 52, 'active'),
-(3, 'Lu 7 kha 5634', 'Volvo', 42, 'active'),
-(4, 'Lu 3 kha 8889', 'Eicher', 48, 'active'),
-(5, 'BA 6 kha 4455', 'Tata', 42, 'active');
+(1, 'BA 4 kha 5678', 'Volvo', 40, 'active'),
+(2, 'BA 5 Kha 1234', 'Tata', 40, 'active'),
+(3, 'Lu 7 kha 5634', 'Volvo', 40, 'active'),
+(4, 'Lu 3 kha 8889', 'Eicher', 40, 'active'),
+(5, 'BA 6 kha 4455', 'Tata', 40, 'active');
 
 -- --------------------------------------------------------
 
@@ -542,7 +542,10 @@ CREATE TABLE `drivers` (
 --
 
 INSERT INTO `drivers` (`driver_id`, `name`, `email`, `password`, `contact_number`, `bus_id`, `status`) VALUES
-(1, 'sss', 'a@gmail.com', 'aaa', '980000', 1, 'active');
+(1, 'sss', 'a@gmail.com', 'aaa', '980000', 1, 'active'),
+(6, 'Shuvam Neupane', 'shuvam@gmail.com', 'shuvam', '9807777987', 3, 'active'),
+(7, 'Hisi', 'hisi@gmail.com', 'hisi', '980000087', 5, 'active'),
+(8, 'Rohan', 'rohan@gmail.com', 'rohan', '98000000889', 2, 'active');
 
 -- --------------------------------------------------------
 
@@ -575,7 +578,7 @@ INSERT INTO `routes` (`route_id`, `origin`, `destination`, `distance`, `duration
 (7, 'biratnagar', 'kathmandu', '400 Kilometers', '15 Hours', 'active', 2, 2000.00),
 (8, 'surkhet', 'kathmandu', '500 Kilometers', '18 Hours', 'active', 3, 3000.00),
 (9, 'birgunj', 'kathmandu', '200 Kilometers', '8 Hours', 'active', 4, 800.00),
-(10, 'dhangadhi', 'pokhara', '678 Kilometers', '22 Hours', 'active', 5, 4000.00);
+(10, 'dhangadhi', 'kathmandu', '678 Kilometers', '22 Hours', 'active', 5, 4000.00);
 
 -- --------------------------------------------------------
 
@@ -606,7 +609,17 @@ INSERT INTO `schedules` (`schedule_id`, `route_id`, `bus_id`, `departure_time`, 
 (15, 7, 2, '2024-05-16 15:00:00', '2024-05-16 14:30:00', 'active'),
 (16, 8, 3, '2024-05-16 14:30:00', '2024-05-16 14:00:00', 'active'),
 (17, 9, 4, '2024-05-16 08:30:00', '2024-05-16 08:00:00', 'active'),
-(18, 10, 5, '2024-05-16 11:30:00', '2024-05-16 11:00:00', 'active');
+(18, 10, 5, '2024-05-16 11:30:00', '2024-05-16 11:00:00', 'active'),
+(19, 1, 1, '2024-05-27 07:15:00', '2024-05-27 07:00:00', 'active'),
+(20, 6, 1, '2024-05-27 16:30:00', '2024-05-27 16:00:00', 'active'),
+(21, 2, 2, '2024-05-27 06:30:00', '2024-05-27 06:00:00', 'active'),
+(22, 7, 2, '2024-05-27 18:30:00', '2024-05-27 18:00:00', 'active'),
+(23, 3, 3, '2024-05-27 06:00:00', '2024-05-27 05:30:00', 'active'),
+(24, 8, 3, '2024-05-27 18:00:00', '2024-05-27 17:30:00', 'active'),
+(25, 4, 4, '2024-05-27 06:00:00', '2024-05-26 05:45:00', 'active'),
+(28, 9, 4, '2024-05-27 18:00:00', '2024-05-27 17:45:00', 'active'),
+(29, 5, 5, '2024-05-27 06:00:00', '2024-05-27 05:45:00', 'active'),
+(30, 10, 5, '2024-05-27 18:00:00', '2024-05-27 17:45:00', 'active');
 
 -- --------------------------------------------------------
 
@@ -764,7 +777,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `drivers`
 --
 ALTER TABLE `drivers`
-  MODIFY `driver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `driver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `routes`
@@ -776,7 +789,7 @@ ALTER TABLE `routes`
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `stationmanager`

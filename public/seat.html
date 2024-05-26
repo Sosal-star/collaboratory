@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +9,27 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="seat.js" defer></script>
 </head>
+
 <body>
-    <div class="seat-chart"></div>
-    <div id="ticket-price"></div>
-    <div>
-        <span>Selected Seats:</span>
-        <span id="selected-seats"></span>
-        <span>Total Fare:</span>
-        <span id="total-fare"></span>
+    <div class="seat-chart-container">
+        <div class="bus-side">Front Side of the Bus</div>
+        <div class="seat-chart">
+            <div class="right"></div>
+            <div class="left"></div>
+            <div class="remaining"></div>
+        </div>
+        <div class="bus-side">Back Side of the Bus</div>
     </div>
-    <button id="confirm-booking">Confirm Booking</button>
+    <div class="text-center">
+        <div id="ticket-price"></div>
+        <div>
+            <span>Selected Seats:</span>
+            <span id="selected-seats"></span>
+            <span>Total Fare:</span>
+            <span id="total-fare"></span>
+        </div>
+        <button id="confirm-booking">Confirm Booking</button>
+    </div>
     <form id="booking-form" action="paymentandpersonal.html" method="GET" style="display:none;">
         <input type="hidden" name="busId" id="form-busId">
         <input type="hidden" name="routeId" id="form-routeId">
@@ -25,6 +37,6 @@
         <input type="hidden" name="totalFare" id="form-totalFare">
     </form>
 </body>
-</html>
 
+</html>
 

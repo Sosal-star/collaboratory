@@ -339,12 +339,6 @@ app.post('/search-buses', (req, res) => {
 });
 const http = require('http');
 const socketIo = require('socket.io');
-//const express = require('express');
-//const app = express();
-//const mysql = require('mysql');
-
-
-
 const server = http.createServer(app);
 const io = socketIo(server);
 
@@ -440,13 +434,24 @@ app.get('/get-bus-route-info', (req, res) => {
       res.json({ seats: results, price: results[0]?.price });
   });
 });
+const crypto = require('crypto');
+const secretKey = '8gBm/:&EnhH.1/q';
+
+app.post('/generate-signature', (req, res) => {
+  const { amt, txAmt, psc, pdc, tAmt, pid, scd, signedFieldNames } = req.body;
+  const secretKey = 'your_secret_key';
+  const hash = crypto.createHmac('sha512', secretKey)
+      .update(`${amt}${txAmt}${psc}${pdc}${tAmt}${pid}${scd}${signedFieldNames}`)
+      .digest('hex');
+  res.json({ signature: hash });
+});
 
 app.get('/esewa-success', (req, res) => {
   const { amt, pid, refId, name, email, busId, routeId, seats } = req.query;
 
   if (!pid || !amt || !refId || !name || !email || !busId || !routeId || !seats) {
       console.error('Missing required parameters');
-      return res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}`);
+      return res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}&totalFare=${amt}`);
   }
 
   const query = `
@@ -476,27 +481,17 @@ app.get('/esewa-success', (req, res) => {
 });
 
 app.get('/esewa-failure', (req, res) => {
-  const { name, email, busId, routeId, seats } = req.query;
+  const { name, email, busId, routeId, seats, amt } = req.query;
 
   if (!name || !email || !busId || !routeId || !seats) {
       console.error('Missing required parameters');
-      return res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}`);
+      return res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}&totalFare=${amt}`);
   }
 
-  res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}`);
+  res.redirect(`/paymentandpersonal.html?status=failed&name=${name}&email=${email}&busId=${busId}&routeId=${routeId}&seats=${seats}&totalFare=${amt}`);
 });
 
-const crypto = require('crypto');
-const secretKey = '8gBm/:&EnhH.1/q';
 
-app.post('/generate-signature', (req, res) => {
-    const { amt, txAmt, psc, pdc, tAmt, pid, scd, signedFieldNames } = req.body;
-
-    const payloadString = `amt=${amt}&txAmt=${txAmt}&psc=${psc}&pdc=${pdc}&tAmt=${tAmt}&pid=${pid}&scd=${scd}`;
-    const hash = crypto.createHmac('sha512', secretKey).update(payloadString).digest('hex');
-
-    res.json({ signature: hash });
-});
 // Endpoint to get logged-in driver's data
 app.get('/driverdata', (req, res) => {
   if (req.session.user && req.session.user.role === 'drivers') {

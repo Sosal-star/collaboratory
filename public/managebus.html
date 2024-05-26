@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d2891741f1.js" crossorigin="anonymous"></script>
     <title>Manage Buses | Bus Management System</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="manage.css">
@@ -85,16 +86,16 @@
                     </a>
                 </li> -->
 
-                <li>
+                <!--li>
                     <a href = "#">
                         <span class="icon">
                             <ion-icon name="book-outline"></ion-icon>
                         </span>
                         <span class="title">Contents</span>
                     </a>
-                </li>
+                </li-->
                 <li>
-                    <a href="#" id="signout-link">
+                    <a href="./login.html" id="signout-link">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -148,71 +149,9 @@
                 </form>
             </div>
             
-            <style>
-        
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f9f9f9;
-                }
-                
-                .container {
-                    max-width: 500px;
-                    margin: 50px auto;
-                    padding: 20px;
-                    background-color: #ffffff;
-                    border-radius: 8px;
-                    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-                }
-                
-                .form-group {
-                    margin-bottom: 20px;
-                }
-                
-                label {
-                    display: block;
-                    font-weight: bold;
-                    margin-bottom: 5px;
-                    color: #333333; /* Dark gray */
-                }
-                
-                input[type="text"],
-                input[type="date"],
-                select {
-                    width: 100%;
-                    padding: 10px;
-                    border: 1px solid #cccccc; /* Light gray */
-                    border-radius: 5px;
-                    box-sizing: border-box;
-                    background-color: #f2f2f2; /* Lighter gray */
-                    color: #333333; /* Dark gray */
-                }
-                
-                input[type="submit"] {
-                    background-color: #4CAF50; /* Green */
-                    color: white;
-                    padding: 12px 20px;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-                }
-                
-                input[type="submit"]:hover {
-                    background-color: #45a049; /* Darker green */
-                }
-                
-                /* Adjust styles for the placeholder text */
-                input::placeholder {
-                    color: #999999; /* Light gray */
-                }
-                h1{
-                    text-align: center;
-                    padding-bottom: 2px;
-                }
-                
-                    </style>
         
             <div class="card-body">
-                <table class="bus-table">
+                <table class="station-table">
                     <thead>
                         <tr>
                             <th>Bus ID</th>
@@ -220,7 +159,7 @@
                             <th>Model</th>
                             <th>Capacity</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -245,7 +184,7 @@ function fetchBuses() {
     fetch('/getbuses')
     .then(response => response.json())
     .then(buses => {
-        const table = document.querySelector('.bus-table tbody');
+        const table = document.querySelector('.station-table tbody');
         table.innerHTML = ''; // Clear existing rows
         buses.forEach(bus => {
             let row = `<tr>
@@ -254,10 +193,7 @@ function fetchBuses() {
                 <td>${bus.model}</td>
                 <td>${bus.capacity}</td>
                 <td>${bus.status}</td>
-                <td>
-                    <button onclick="deleteBus(bus_id)">Delete</button>
-                    <button onclick="editBus(busID)">Edit</button>
-                </td>
+                
             </tr>`;
             table.innerHTML += row;
         });
@@ -298,5 +234,7 @@ function editBus(busId) {
 }
 
     </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
+    initializeSocket(busId, routeId);
+    setupConfirmBookingListener();
+});
+
+function initializeSocket(busId, routeId) {
     socket.emit('subscribeToSeatUpdates', { busId, routeId });
 
     socket.on('initialData', data => {
@@ -22,23 +27,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     socket.on('seatUpdated', data => {
-        const seatDiv = document.querySelector(`.seat[data-seat-number="${data.seatNumber}"]`);
-        if (seatDiv) {
-            seatDiv.classList.remove('available');
-            seatDiv.classList.add('booked');
-        }
+        updateSeatStatus(data.seatNumber, 'booked');
     });
 
     socket.on('bookingConfirmed', data => {
-        const seatDiv = document.querySelector(`.seat[data-seat-number="${data.seatNumber}"]`);
-        if (seatDiv) {
-            seatDiv.classList.add('booked');
-        }
+        updateSeatStatus(data.seatNumber, 'booked');
     });
 
     socket.on('error', data => {
         console.error(data.message);
     });
+}
+
+function setupConfirmBookingListener() {
     document.getElementById('confirm-booking').addEventListener('click', function () {
         const urlParams = new URLSearchParams(window.location.search);
         const busId = urlParams.get('busId');
@@ -54,22 +55,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
         form.submit();
     });
-
-});
+}
 
 function displaySeats(seatData) {
     const seatChart = document.querySelector('.seat-chart');
     seatChart.innerHTML = ''; // Clear existing seats
     seatData.forEach(seat => {
-        const seatDiv = document.createElement('div');
-        seatDiv.className = `seat ${seat.status}`;
-        seatDiv.setAttribute('data-seat-number', seat.seat_number);
-        seatDiv.textContent = seat.seat_number;
-        if (seat.status === 'available') {
-            seatDiv.addEventListener('click', () => selectSeat(seat.seat_number));
-        }
+        const seatDiv = createSeatElement(seat);
         seatChart.appendChild(seatDiv);
     });
+}
+
+function createSeatElement(seat) {
+    const seatDiv = document.createElement('div');
+    seatDiv.className = `seat ${seat.status}`;
+    seatDiv.setAttribute('data-seat-number', seat.seat_number);
+    seatDiv.textContent = seat.seat_number;
+    if (seat.status === 'available') {
+        seatDiv.addEventListener('click', () => toggleSeatSelection(seat.seat_number));
+    }
+    return seatDiv;
+}
+
+function updateSeatStatus(seatNumber, status) {
+    const seatDiv = document.querySelector(`.seat[data-seat-number="${seatNumber}"]`);
+    if (seatDiv) {
+        seatDiv.classList.remove('available', 'reserved', 'booked', 'selected');
+        seatDiv.classList.add(status);
+    }
 }
 
 function displayPrice(price) {
@@ -81,12 +94,14 @@ let selectedSeats = [];
 const selectedSeatsDisplay = document.getElementById('selected-seats');
 const totalFareDisplay = document.getElementById('total-fare');
 
-function selectSeat(seatNumber) {
+function toggleSeatSelection(seatNumber) {
     const index = selectedSeats.indexOf(seatNumber);
     if (index > -1) {
         selectedSeats.splice(index, 1); // Deselect the seat
+        updateSeatStatus(seatNumber, 'available');
     } else {
         selectedSeats.push(seatNumber); // Select the seat
+        updateSeatStatus(seatNumber, 'selected');
     }
     updateDisplayedInfo();
 }

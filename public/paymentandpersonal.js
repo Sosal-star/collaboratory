@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const status = urlParams.get('status');
-    if (status === 'success') {
+    if (status === 'success' || status === 'failed') {
         document.getElementById('ticket').style.display = 'block';
         document.getElementById('ticket-name').textContent = `Name: ${name}`;
         document.getElementById('ticket-email').textContent = `Email: ${email}`;
@@ -81,3 +81,4 @@ function downloadTicket() {
     document.body.appendChild(element);
     element.click();
 }
+

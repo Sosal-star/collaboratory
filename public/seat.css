@@ -1,41 +1,135 @@
+/* General styles */
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #333;
+    background-color: #1a1a1a;
     color: white;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    margin: 50px;
 }
+
+
+/* .seat-chart-container {
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+} */
+
+/* Bus side labels */
+.bus-side {
+    margin: 10px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
 
 .seat-chart {
     display: grid;
-    grid-template-columns: repeat(8, 1fr); /* Adjust based on your layout needs */
-    gap: 5px;
-    background-color: #222;
-    padding: 10px;
-    border-radius: 5px;
+    grid-template-columns: repeat(4, auto);
+    gap: 10px;
+
+    justify-content: center;
+    /* width: 80%; */
+    margin-top: 8px;
+}
+
+.right,
+.left {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 20px;
 }
 
 .seat {
-    width: 40px;
-    height: 40px;
-    background-color: #555;
+    width: 30px;
+    height: 30px;
+    background-color: #777;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+
+/* Seat sections */
+.right,
+.left {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+}
+
+/* Seats */
+.seat {
+    width: 30px;
+    height: 30px;
+    background-color: #777;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 8px;
+}
+
+/* Seat status */
+.available {
+
+    background-color: #4caf50;
+    /* Green */
+}
+
+.reserved {
+    background-color: #ffeb3b;
+    /* Yellow */
+}
+
+.booked {
+    background-color: #f44336;
+    /* Red */
+}
+
+.selected {
+    background-color: #ffa726;
+    /* Orange */
+}
+
+/* Text and button styles */
+.text-center {
+    text-align: center;
+}
+
+#ticket-price,
+#selected-seats,
+#total-fare {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+button#confirm-booking {
+    padding: 10px 20px;
+    background-color: #0d6efd;
+    /* Bootstrap primary blue color */
+    color: white;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    /* Smooth transitions */
+    font-size: 16px;
+    margin-top: 10px;
+    /* Space above button */
 }
 
-.seat.booked {
-    background-color: red;
+button#confirm-booking:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+    transform: scale(1.05);
+    /* Slightly enlarge on hover */
 }
 
-.seat.selected {
-    background-color: orange;
-}
-
-.seat.available {
-    background-color: blue;
+/* Hide booking form by default */
+form#booking-form {
+    display: none;
 }

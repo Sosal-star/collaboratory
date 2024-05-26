@@ -1,4 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* General Styles */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
+
 * {
     padding: 0;
     margin: 0;
@@ -10,6 +12,11 @@
     padding: 1rem 5rem;
 }
 
+.bk-container {
+    background-color: red;
+}
+
+/* Navigation Styles */
 nav {
     padding: 10px;
     display: flex;
@@ -43,93 +50,120 @@ nav {
     text-decoration: underline;
 }
 
-.hero {
+#hero {
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.booking-container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start; /* Align items to the left */
-    background-color: #0e1d35;
-    color: white;
-    height: auto;
-    padding: 2rem;
-  
-}
-.headline{
-    margin-left: 40px;
-    margin-top: 20px;
+    align-items: center;
 }
 
-.left,
-.right {
+.booking-headline {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align items to the left */
-    margin-bottom: 1rem;
-    margin-top: 15px;
-    
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-.date-picker {
-    margin-bottom: 1rem;
-    margin-left: 40px;
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
 }
 
-.column {
-    margin-bottom: 10px;
-    margin-top: 50px;
-    margin-left: 40px;
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 
-}
-.from{
-    margin-bottom: 1px;
-}
-.to{
-    margin-left: 20px;
-    
-}
-select,
-input.date {
-    width: 200px;
+.form-group select,
+.form-group input[type="date"] {
+    width: 100%;
     padding: 8px;
-    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    
 }
-button {
+
+.btn-search {
     padding: 10px 20px;
-    margin-top: 10px;
-    margin-left: 80px;
-    background-color: #2B3D5B;
-    color: #fff;
+    background-color: #007bff;
+    color: #ffffff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-
-.right button{
-    padding: 15px 30px;
-    margin-top: 20px;
-    font-size: larger;
-    
+.btn-search:hover {
+    background-color: #0056b3;
 }
 
-button:hover {
-    background-color: #C3C3C3;
+.results-container {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.buslist{
-    background-color: white;
-  width: 300px;
-  padding: 150px 400px;
-  margin: 20px;
-  margin-left: 600px;
-  margin-top: -400px;
-  
+
+.bus-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
 }
-.ablbl{
-    color: #0e1d35;
-    
+
+.bus-item h4 {
+    margin-bottom: 10px;
+}
+
+.bus-item p {
+    margin-bottom: 5px;
+}
+
+.bus-item button {
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bus-item button:hover {
+    background-color: #218838;
+}
+
+@media (min-width: 768px) {
+    .booking-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .form-container {
+        width: 40%;
+    }
+
+    .results-container {
+        width: 55%;
+        margin-left: 5%;
+    }
 }
 
 .foot {
@@ -156,11 +190,11 @@ button:hover {
     text-decoration: none;
     color: white;
 }
-.left-foot ul a{
+
+.left-foot ul a {
     color: white;
     text-decoration: none;
 }
-
 
 footer {
     background-color: white;
@@ -196,12 +230,3 @@ footer {
 .right-foot .info p {
     color: #0e1d35;
 }
-#bus-results {
-    margin-top: 20px;
-  }
-  
-  .bus-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
